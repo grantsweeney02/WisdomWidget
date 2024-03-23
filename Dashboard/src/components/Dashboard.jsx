@@ -1,12 +1,9 @@
 import ClassesSidebar from "./ClassesSidebar"
-import DashboardContent from "./DashboardContent"
+import DashboardContent from "./AssignmentDetails"
 import { useEffect, useState } from "react"
 
 const Dashboard = ({}) => {
-
-	return (
-        <h1>Dashboard</h1>
-	)
+	return <h1>Dashboard</h1>
 }
 
 export default Dashboard
