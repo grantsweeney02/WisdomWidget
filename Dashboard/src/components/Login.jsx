@@ -5,7 +5,7 @@ import "../styles/Login.css";
 import GoogleIcon from "@mui/icons-material/Google";
 import axios from "axios";
 
-const Login = ({ data }) => {
+const Login = ({ data, setUserData }) => {
     const [loggedIn, setLoggedIn] = useState(auth.currentUser);
     const navigate = useNavigate();
 
@@ -38,6 +38,7 @@ const Login = ({ data }) => {
                         request
                     );
                     console.log("Response: ", response);
+                    setUserData(response.data);
                     setLoggedIn(true);
                 } catch (error) {
                     console.error("Error retrieving user data: ", error);
