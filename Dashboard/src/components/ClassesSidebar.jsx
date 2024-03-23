@@ -18,6 +18,11 @@ const ClassesSidebar = ({}) => {
         navigate(`/${assignment.id}`);
     };
 
+    const handleLogout = async () => {
+        await auth.signOut();
+        navigate("/");
+    };
+
     const ClassAccordionItems = classes.map((classData, index) => {
         const AssignmentButtons = classData.assignments.map(
             (assignmentData, index2) => {
@@ -81,7 +86,7 @@ const ClassesSidebar = ({}) => {
             <button
                 type="button"
                 className="btn btn-danger sidebar-logout-button"
-                onClick={() => auth.signOut()}
+                onClick={() => handleLogout()}
             >
                 Logout
             </button>
