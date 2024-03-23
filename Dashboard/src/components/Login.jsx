@@ -34,7 +34,7 @@ const Login = ({ data, setUserData }) => {
                 console.log("Request: ", request);
                 try {
                     const response = await axios.post(
-                        "http://localhost:8000/retrieveUserData",
+                        "http://localhost:8000/classes/retrieveUserData",
                         request
                     );
                     console.log("Response: ", response);
