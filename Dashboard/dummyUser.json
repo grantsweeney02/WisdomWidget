@@ -17,6 +17,7 @@
                     ],
                     "notes": [
                         {
+                            "id": 1,
                             "name": "Note1",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note1",
@@ -27,6 +28,7 @@
                             }
                         },
                         {
+                            "id": 2,
                             "name": "Note2",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note2",
@@ -37,6 +39,7 @@
                             }
                         },
                         {
+                            "id": 3,
                             "name": "Note3",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note3",
@@ -55,6 +58,7 @@
                     "urlRecs": [],
                     "notes": [
                         {
+                            "id": 4,
                             "name": "Note1",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note1",
@@ -65,6 +69,7 @@
                             }
                         },
                         {
+                            "id": 5,
                             "name": "Note2",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note2",
@@ -75,6 +80,7 @@
                             }
                         },
                         {
+                            "id": 6,
                             "name": "Note3",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note3",
@@ -93,6 +99,7 @@
                     "urlRecs": [],
                     "notes": [
                         {
+                            "id": 7,
                             "name": "Note1",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note1",
@@ -103,6 +110,7 @@
                             }
                         },
                         {
+                            "id": 8,
                             "name": "Note2",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note2",
@@ -113,6 +121,7 @@
                             }
                         },
                         {
+                            "id": 9,
                             "name": "Note3",
                             "url": "http://www.google.com",
                             "summary": "This is a summary for Note3",
