@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { signInWithGooglePopup, auth } from "../../firebaseConfig";
+import { useNavigate } from "react-router-dom";
+import "../styles/Login.css";
+import GoogleIcon from "@mui/icons-material/Google";
 
-const Dashboard = ({ data }) => {
+const Login = ({ data }) => {
     const [loggedIn, setLoggedIn] = useState(auth.currentUser);
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         const response = await signInWithGooglePopup();
@@ -15,6 +19,11 @@ const Dashboard = ({ data }) => {
             firstName: response,
         };
         const localId = response._tokenResponse.localId;
+    };
+
+    const handleLogout = async () => {
+        await auth.signOut();
+        navigate("/");
     };
 
     // print when auth state changes
@@ -36,12 +45,19 @@ const Dashboard = ({ data }) => {
     }, []);
 
     return (
-        <>
-            <h1>Dashboard</h1>
-            {!loggedIn && <button onClick={() => handleLogin()}>Login</button>}
-            {loggedIn && <button onClick={() => auth.signOut()}>Logout</button>}
-        </>
+        <div className="login-container">
+            <h1>Welcome to ____!</h1>
+            {!loggedIn && (
+                <button
+                    className="btn btn-primary login-button"
+                    onClick={() => handleLogin()}
+                >
+                    <GoogleIcon style={{ marginRight: "5px" }} />
+                    Login with Google
+                </button>
+            )}
+        </div>
     );
 };
 
-export default Dashboard;
+export default Login;

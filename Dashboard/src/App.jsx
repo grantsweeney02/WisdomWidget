@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
 import dummyUser from "../dummyUser.json";
 import NoteDetails from "./components/NoteDetails";
 import ClassesSidebar from "./components/ClassesSidebar";
@@ -29,7 +29,7 @@ function App() {
                     <div className="row">
                         {auth.currentUser && <ClassesSidebar />}
                         <Routes>
-                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/" element={<Login />} />
                             <Route
                                 path="/:assignmentID"
                                 element={<AssignmentDetails data={dummyUser} />}
