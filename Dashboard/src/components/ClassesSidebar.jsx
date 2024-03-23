@@ -9,7 +9,7 @@ const ClassesSidebar = ({ classes, setActiveAssignment }) => {
 		const AssignmentButtons = classData.assignments.map((assignmentData, index) => {
 			return (
 				<>
-					<button key={index} type="button" className="btn btn-primary" onClick={() => handleAssignmentChange()}>
+					<button key={index} type="button" className="btn btn-primary" onClick={() => handleAssignmentChange(assignmentData)}>
 						{assignmentData.name}
 					</button>
 				</>
