@@ -1,69 +1,117 @@
 .classes-sidebar {
-    position: sticky;
-    left: 0px;
-    top: 0px;
-    height: 100vh;
-    background-color: var(--bg-secondary);
-    padding: 1rem;
+	position: sticky;
+	left: 0px;
+	top: 0px;
+	height: 100vh;
+	background-color: var(--bg-secondary);
+	padding: 1rem;
 }
 
 .accordion {
-    border-width: 5px;
-    --bs-accordion-border-width: 0px;
+	border-width: 5px;
+	--bs-accordion-border-width: 0px;
 }
 
 .accordion-item {
-    border: none;
+	border: none;
 }
 
 .accordion-header {
-    border: none;
+	border: none;
 }
 
 .accordion-button {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    border: none;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	border: none;
 }
 
 .accordion-button:not(.collapsed) {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    border: none;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	border: none;
 }
 
 .accordion-button::after {
-    border: none;
+	border: none;
 }
 
 .accordion-body {
-    background-color: var(--bg-secondary);
-    padding: 1rem;
-    border: none;
+	background-color: var(--bg-secondary);
+	padding: 1rem;
+	border: none;
 }
 
 .assignment-buttons {
-    border-radius: 0px;
-    width: 100%;
+	border-radius: 0px;
+	width: 100%;
 }
 
 .assignment-button {
-    width: 100%;
-    text-align: left;
-    background-color: var(--bg-secondary);
-    border: none;
+	width: 100%;
+	text-align: left;
+	background-color: var(--bg-secondary);
+	border: none;
 }
 
 .assignment-button.active {
-    background-color: var(--accent-secondary);
+	background-color: var(--accent-secondary);
 }
 
 .assignment-button:hover {
-    background-color: var(--accent-secondary);
+	background-color: var(--accent-secondary);
 }
 
 .sidebar-logout-button {
-    position: absolute;
-    bottom: 1rem;
-    color: var(--text-primary);
+	position: absolute;
+	left: 1rem;
+	bottom: 1rem;
+	color: var(--text-primary);
+}
+
+.add-class-button {
+	width: 100%;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	text-align: left;
+	margin-top: 1rem;
+}
+
+.add-class-button:hover {
+	color: var(--text-primary);
+	background-color: var(--accent-secondary);
+}
+
+.add-class-input {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-top: 1rem;
+}
+
+.form-control,
+.form-control:active,
+.form-control:focus {
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	margin-bottom: 0.5rem;
+}
+
+.form-control::placeholder {
+	color: var(--text-secondary);
+}
+
+.add-class-confirms {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.add-class-confirms button {
+	border-radius: 1rem;
+	color: var(--text-primary);
+}
+
+.add-class-confirms button:hover {
+	background-color: var(--accent-primary);
+	color: var(--text-primary);
 }
