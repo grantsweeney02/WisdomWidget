@@ -1,0 +1,23 @@
+.keyword-container {
+	background-color: gray;
+	padding: 2rem;
+	margin: 1rem;
+    border-radius: 1rem;
+}
+
+.keyword-card {
+	display: flex;
+}
+
+.keyword {
+	width: 30%;
+	border-right: 2px solid black;
+    margin: 0px;
+	padding-right: 2rem;
+}
+
+.definition {
+	width: 70%;
+    margin: 0px;
+	padding-left: 2rem;
+}

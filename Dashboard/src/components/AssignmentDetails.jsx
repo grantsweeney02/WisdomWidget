@@ -4,7 +4,7 @@ import URLRec from "./URLRec";
 import dummyUser from "../../dummyUser.json";
 import { useParams } from "react-router-dom";
 
-const DashboardContent = ({}) => {
+const AssignmentDetails = ({}) => {
 	const { assignmentID } = useParams()
 
     // fetch assignment info
@@ -30,13 +30,13 @@ const DashboardContent = ({}) => {
                     <h4>Notes: </h4>
                     <div className="note-card-container">
                         {assignment.notes.map((note, index) => (
-                            <NoteCard key={index} note={note} />
+                            <NoteCard key={index} assignmentID={assignmentID} note={note} />
                         ))}
                     </div>
                     <Citations urls={getAllNoteUrls(assignment.notes)} />
                     <h4>More Resources: </h4>
                     {assignment.urlRecs.map((url, index) => (
-                        <URLRec url={url} />
+                        <URLRec key={index} url={url} />
                     ))}
                 </div>
             )}
@@ -44,4 +44,4 @@ const DashboardContent = ({}) => {
     );
 };
 
-export default DashboardContent;
+export default AssignmentDetails;
