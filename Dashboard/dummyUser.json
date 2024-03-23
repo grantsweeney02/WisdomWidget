@@ -1,370 +1,365 @@
 {
-    "first" : "Notes",
-    "last" : "Helper",
-    "email" : "NotesHelperApp@gmail.com",
+    "first": "Notes",
+    "last": "Helper",
+    "email": "NotesHelperApp@gmail.com",
     "classes": [
         {
-            "name" : "Class1",
-            "assignments" : [
+            "name": "Class1",
+            "assignments": [
                 {
-                    "name" : "Assignment1",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment1",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [
+                        "http://www.wikipedia.com",
+                        "http://www.yahoo.com",
+                        "http://www.gmail.com"
+                    ],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 },
                 {
-                    "name" : "Assignment2",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment2",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 },
                 {
-                    "name" : "Assignment3",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment3",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 }
             ]
         },
         {
-            "name" : "Class2",
-            "assignments" : [
+            "name": "Class2",
+            "assignments": [
                 {
-                    "name" : "Assignment1",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment1",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 },
                 {
-                    "name" : "Assignment2",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment2",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 },
                 {
-                    "name" : "Assignment3",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment3",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 }
             ]
         },
         {
-            "name" : "Class3",
-            "assignments" : [
+            "name": "Class3",
+            "assignments": [
                 {
-                    "name" : "Assignment1",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment1",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 },
                 {
-                    "name" : "Assignment2",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment2",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 },
                 {
-                    "name" : "Assignment3",
-                    "due" : "2015-01-01",
-                    "urlHistory" : [],
-                    "urlRecs" : [],
-                    "notes" : [
+                    "name": "Assignment3",
+                    "due": "2015-01-01",
+                    "urlHistory": [],
+                    "urlRecs": [],
+                    "notes": [
                         {
-                            "name" : "Note1",
+                            "name": "Note1",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note1",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note1",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note2",
+                            "name": "Note2",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note2",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note2",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         },
                         {
-                            "name" : "Note3",
+                            "name": "Note3",
                             "url": "http://www.google.com",
-                            "summary" : "This is a summary for Note3",
-                            "keywords" : {
-                                "keyword 1" : "definition for keyword 1",
-                                "keyword 2" : "definition for keyword 2",
-                                "keyword 3" : "definition for keyword 3"
+                            "summary": "This is a summary for Note3",
+                            "keywords": {
+                                "keyword 1": "definition for keyword 1",
+                                "keyword 2": "definition for keyword 2",
+                                "keyword 3": "definition for keyword 3"
                             }
                         }
-
                     ]
                 }
             ]

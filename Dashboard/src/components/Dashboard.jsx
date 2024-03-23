@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const Dashboard = ({ data }) => {
     const [activeClass, setActiveClass] = useState(data.classes[0]);
-    const [activeAssignment, setActiveAssignment] = useState(null);
+    const [activeAssignment, setActiveAssignment] = useState(data.classes[0].assignments[0]);
 
     return (
         <div>
