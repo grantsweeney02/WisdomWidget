@@ -3,20 +3,20 @@ import "../styles/NoteDetails.css"
 
 const NoteDetails = ({}) => {
 	const { noteID } = useParams()
-    const navigate = useNavigate()
+	const navigate = useNavigate()
 
 	// get note info from db
 	const data = demoResponse // from fetch
 
-    const handleBack = () => {
-        navigate(-1);
-    }
+	const handleBack = () => {
+		navigate(-1)
+	}
 
 	const Keywords = Object.entries(data.note.keywords).map(([keyword, definition]) => (
 		<div key={keyword} className="keyword-container">
 			<div className="keyword-card">
 				<h5 className="keyword">{keyword}</h5>
-                <p className="definition">{definition}</p>
+				<p className="definition">{definition}</p>
 			</div>
 		</div>
 	))
@@ -24,18 +24,20 @@ const NoteDetails = ({}) => {
 	return (
 		<>
 			{noteID && (
-				<div className="col-10">
+				<div className="col-10 note-details">
 					<h1>
 						{data.assignmentName} - {data.note.name}
 					</h1>
-                    <button onClick={() => handleBack()}>&lsaquo; Back</button>
+					<button className="btn back-button" onClick={() => handleBack()}>
+						&lsaquo; Back
+					</button>
+					<p>{data.note.summary}</p>
+					<div className="keywords">{Keywords}</div>
 					{data.note.url && (
 						<h4>
 							Source: <a href={data.note.url}>{data.note.url}</a>
 						</h4>
 					)}
-					<p>{data.note.summary}</p>
-					<div className="keywords">{Keywords}</div>
 				</div>
 			)}
 		</>

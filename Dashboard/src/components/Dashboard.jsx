@@ -26,7 +26,6 @@ const Dashboard = ({ data }) => {
                     email: user.email,
                     displayName: user.displayName,
                 };
-                console.log("Request: ", request);
                 setLoggedIn(true);
             } else {
                 console.log("Logged out");

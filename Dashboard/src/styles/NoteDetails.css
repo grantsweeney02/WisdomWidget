@@ -1,8 +1,21 @@
+.note-details {
+	padding: 1rem;
+}
+
+.back-button {
+	color: var(--text-secondary);
+	margin-bottom: 2rem;
+}
+
+.keywords {
+	margin: 3rem 0rem;
+}
+
 .keyword-container {
-	background-color: gray;
-	padding: 2rem;
+	background-color: var(--bg-secondary);
+	padding: 1rem;
 	margin: 1rem;
-    border-radius: 1rem;
+	border-radius: 1rem;
 }
 
 .keyword-card {
@@ -11,13 +24,13 @@
 
 .keyword {
 	width: 30%;
-	border-right: 2px solid black;
-    margin: 0px;
-	padding-right: 2rem;
+	border-right: 2px solid var(--bg-primary);
+	margin: 0px;
+	padding: 1rem 2rem 1rem 1rem;
 }
 
 .definition {
 	width: 70%;
-    margin: 0px;
-	padding-left: 2rem;
+	margin: 0px;
+	padding: 1rem 1rem 1rem 2rem;
 }

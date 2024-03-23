@@ -1,11 +1,12 @@
 .assignment-detail {
-    padding: 1rem;
+	padding: 1rem;
 }
 
 .due-date {
-    color: var(--text-secondary);
+	color: var(--text-secondary);
 }
 
 .notes {
-    margin-top: 4rem;
+	margin-top: 4rem;
+	margin-bottom: 1rem;
 }

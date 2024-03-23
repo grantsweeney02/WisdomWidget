@@ -6,10 +6,10 @@ const NoteCard = ({ assignmentID, note }) => {
 
     return (
         <Link to={`/${assignmentID}/${note.id}`} className="card note-summary-card">
-            <div className="card-header">{note.name}</div>
-            <div className="card-body">
+            <div className="card-header note-card-header">{note.name}</div>
+            <div className="card-body note-card-body">
                 {/* TODO: cut off the summary with a ... after a certain number of characters */}
-                <p className="card-text">{note.summary}</p>
+                <p className="card-text note-card-text">{note.summary}</p>
             </div>
         </Link>
     );

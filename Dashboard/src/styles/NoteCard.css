@@ -10,11 +10,18 @@
 	cursor: pointer;
 	height: 10rem;
 	text-decoration: none;
+	transition: all 0.2s;
 }
 
 .card {
-    background-color: var(--bg-primary);
+	background-color: var(--bg-primary);
 	border: 1px solid var(--text-primary);
+	transition: all 0.2s;
+}
+
+.card:hover {
+	border-color: var(--accent-primary);
+	transform: translateY(-3px);
 }
 
 .card-header {
@@ -25,7 +32,7 @@
 
 .card-body {
 	background-color: var(--bg-primary);
-    color: var(--text-secondary);
+	color: var(--text-secondary);
 	margin: 5px 0px;
 	border: none;
 }
