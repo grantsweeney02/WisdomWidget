@@ -1,22 +1,47 @@
-.note-summary-card {
-    cursor: pointer;
-    height: 10rem;
-    text-decoration: none;
+.note-card-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: minmax(20rem, auto);
+	gap: 1rem;
+	margin-right: 1rem;
 }
 
-.note-card-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(20rem, auto);
-    gap: 1rem;
-    margin-right: 1rem;
+.note-summary-card {
+	cursor: pointer;
+	height: 10rem;
+	text-decoration: none;
+	transition: all 0.2s;
+}
+
+.card {
+	background-color: var(--bg-primary);
+	border: 1px solid var(--text-primary);
+	transition: all 0.2s;
+}
+
+.card:hover {
+	border-color: var(--accent-primary);
+	transform: translateY(-3px);
+}
+
+.card-header {
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	border: none;
+}
+
+.card-body {
+	background-color: var(--bg-primary);
+	color: var(--text-secondary);
+	margin: 5px 0px;
+	border: none;
 }
 
 .url-rec {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .url-card {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
