@@ -28,7 +28,7 @@ const NoteDetails = ({}) => {
 					<h1>
 						{data.assignmentName} - {data.note.name}
 					</h1>
-                    <button onClick={() => handleBack()}>Back</button>
+                    <button onClick={() => handleBack()}>&lsaquo; Back</button>
 					{data.note.url && (
 						<h4>
 							Source: <a href={data.note.url}>{data.note.url}</a>
