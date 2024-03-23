@@ -1,4 +1,10 @@
+import { useParams } from 'react-router-dom';
+
 const NoteDetails = ({ assignment, note }) => {
+    const { noteID } = useParams();
+    
+    // get note info from db
+
 	return (
 		<>
 			{note && (
