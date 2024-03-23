@@ -3,6 +3,7 @@ import { signInWithGooglePopup, auth } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import GoogleIcon from "@mui/icons-material/Google";
+import axios from "axios";
 
 const Login = ({ data }) => {
     const [loggedIn, setLoggedIn] = useState(auth.currentUser);
@@ -21,26 +22,35 @@ const Login = ({ data }) => {
         const localId = response._tokenResponse.localId;
     };
 
-    const handleLogout = async () => {
-        await auth.signOut();
-        navigate("/");
-    };
 
-    // print when auth state changes
     useEffect(() => {
-        auth.onAuthStateChanged((user) => {
+        const checkUser = async (user) => {
             if (user) {
                 const request = {
                     uid: user.reloadUserInfo.localId,
                     email: user.email,
                     displayName: user.displayName,
                 };
-                setLoggedIn(true);
+                console.log("Request: ", request);
+                try {
+                    const response = await axios.post(
+                        "http://localhost:8000/retrieveUserData",
+                        request
+                    );
+                    console.log("Response: ", response);
+                    setLoggedIn(true);
+                } catch (error) {
+                    console.error("Error retrieving user data: ", error);
+                }
             } else {
                 console.log("Logged out");
                 setLoggedIn(false);
             }
-        });
+        };
+    
+        const unsubscribe = auth.onAuthStateChanged(checkUser);
+    
+        return () => unsubscribe();
     }, []);
 
     return (
