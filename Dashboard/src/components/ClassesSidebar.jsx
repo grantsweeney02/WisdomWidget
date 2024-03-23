@@ -1,16 +1,18 @@
-const ClassesSidebar = ({ classes, setActiveClass }) => {
-    return (
-        <div>
-            <h2>Classes</h2>
-            <ul>
-                {classes.map((c, index) => (
-                    <button key={index} onClick={() => setActiveClass(c)}>
-                        {c.name}
-                    </button>
-                ))}
-            </ul>
-        </div>
-    );
-};
+import "../styles/classessidebar.css"
 
-export default ClassesSidebar;
+const ClassesSidebar = ({ classes, setActiveClass }) => {
+	return (
+		<>
+			<h2>Classes</h2>
+			<ul>
+				{classes.map((c, index) => (
+					<button className="btn" key={index} onClick={() => setActiveClass(c)}>
+						{c.name}
+					</button>
+				))}
+			</ul>
+		</>
+	)
+}
+
+export default ClassesSidebar

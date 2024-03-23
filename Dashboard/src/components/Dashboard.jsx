@@ -1,4 +1,5 @@
 import ClassesSidebar from "./ClassesSidebar";
+import DashboardContent from "./DashboardContent";
 import { useEffect, useState } from "react";
 
 const Dashboard = ({ data }) => {
