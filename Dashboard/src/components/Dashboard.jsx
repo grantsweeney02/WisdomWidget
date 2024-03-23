@@ -11,7 +11,7 @@ const Dashboard = ({ data }) => {
                 classes={data.classes}
                 setActiveAssignment={setActiveAssignment}
             />
-            <DashboardContent assignment={activeAssignment}/>
+            <DashboardContent assignment={activeAssignment} />
         </div>
     );
 };
