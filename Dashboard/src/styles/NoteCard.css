@@ -1,6 +1,7 @@
 .note-summary-card {
     cursor: pointer;
     height: 10rem;
+    text-decoration: none;
 }
 
 .note-card-container {
