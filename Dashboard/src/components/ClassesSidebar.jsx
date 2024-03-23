@@ -45,12 +45,12 @@ const ClassesSidebar = ({ classes, setActiveAssignment }) => {
 	})
 
 	return (
-		<div className="col-2">
+		<nav className="col-2">
 			<h2>Classes</h2>
 			<div className="accordion" id="classesAccordion">
 				{ClassAccordionItems}
 			</div>
-		</div>
+		</nav>
 	)
 }
 
