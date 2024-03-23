@@ -1,12 +1,15 @@
 import "../styles/classessidebar.css"
 import { useNavigate } from "react-router-dom";
+import dummyUser from "../../dummyUser.json"
 
-const ClassesSidebar = ({ classes, setActiveAssignment }) => {
-
+const ClassesSidebar = ({}) => {
     const navigate = useNavigate();
 
+    // fetch userdata from backend
+    const response = dummyUser
+    const classes = response.classes
+
 	const handleAssignmentChange = (assignment) => {
-		setActiveAssignment(assignment)
         navigate(`/${assignment.id}`);
 	}
 
