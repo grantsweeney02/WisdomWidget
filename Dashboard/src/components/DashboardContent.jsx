@@ -1,5 +1,6 @@
 import Citations from "./Citations";
 import NoteCard from "./NoteCard";
+import URLRec from "./URLRec";
 
 const DashboardContent = ({ assignment }) => {
     const getAllNoteUrls = (notes) => {
@@ -28,11 +29,7 @@ const DashboardContent = ({ assignment }) => {
                     <h4>More Resources: </h4>
                     <ul>
                         {assignment.urlRecs.map((url, index) => (
-                            <li key={index}>
-                                <a key={index} href={url}>
-                                    {url}
-                                </a>
-                            </li>
+                            <URLRec url={url}/>
                         ))}
                     </ul>
                 </div>

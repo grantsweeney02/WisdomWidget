@@ -1,8 +1,13 @@
 import "../styles/classessidebar.css"
+import { useNavigate } from "react-router-dom";
 
 const ClassesSidebar = ({ classes, setActiveAssignment }) => {
+
+    const navigate = useNavigate();
+
 	const handleAssignmentChange = (assignment) => {
 		setActiveAssignment(assignment)
+        navigate(`/${assignment.id}`);
 	}
 
 	const ClassAccordionItems = classes.map((classData, index) => {

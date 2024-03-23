@@ -4,9 +4,11 @@
     "email": "NotesHelperApp@gmail.com",
     "classes": [
         {
+            "id": 1,
             "name": "Class1",
             "assignments": [
                 {
+                    "id": 1,
                     "name": "Assignment1",
                     "due": "2015-01-01",
                     "urlHistory": [],
@@ -52,6 +54,7 @@
                     ]
                 },
                 {
+                    "id": 2,
                     "name": "Assignment2",
                     "due": "2015-01-01",
                     "urlHistory": [],
@@ -93,6 +96,7 @@
                     ]
                 },
                 {
+                    "id": 3,
                     "name": "Assignment3",
                     "due": "2015-01-01",
                     "urlHistory": [],
@@ -136,9 +140,11 @@
             ]
         },
         {
+            "id": 2,
             "name": "Class2",
             "assignments": [
                 {
+                    "id": 4,
                     "name": "Assignment1",
                     "due": "2015-01-01",
                     "urlHistory": [],
@@ -177,6 +183,7 @@
                     ]
                 },
                 {
+                    "id": 5,
                     "name": "Assignment2",
                     "due": "2015-01-01",
                     "urlHistory": [],
@@ -215,6 +222,7 @@
                     ]
                 },
                 {
+                    "id": 6,
                     "name": "Assignment3",
                     "due": "2015-01-01",
                     "urlHistory": [],
@@ -255,9 +263,11 @@
             ]
         },
         {
+            "id": 3,
             "name": "Class3",
             "assignments": [
                 {
+                    "id": 7,
                     "name": "Assignment1",
                     "due": "2015-01-01",
                     "urlHistory": [],
@@ -296,6 +306,7 @@
                     ]
                 },
                 {
+                    "id": 8,
                     "name": "Assignment2",
                     "due": "2015-01-01",
                     "urlHistory": [],
@@ -334,6 +345,7 @@
                     ]
                 },
                 {
+                    "id": 9,
                     "name": "Assignment3",
                     "due": "2015-01-01",
                     "urlHistory": [],
