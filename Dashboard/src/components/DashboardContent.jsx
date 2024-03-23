@@ -27,11 +27,9 @@ const DashboardContent = ({ assignment }) => {
                     </div>
                     <Citations urls={getAllNoteUrls(assignment.notes)} />
                     <h4>More Resources: </h4>
-                    <ul>
-                        {assignment.urlRecs.map((url, index) => (
-                            <URLRec url={url}/>
-                        ))}
-                    </ul>
+                    {assignment.urlRecs.map((url, index) => (
+                        <URLRec url={url} />
+                    ))}
                 </div>
             )}
         </>
