@@ -1,10 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/NoteCard.css";
 
 const NoteCard = ({ note }) => {
-    const { name, url } = note;
+    const navigate = useNavigate();
 
     const handleViewNote = (noteID) => {
-        console.log(noteID);
+        navigate(`/notes/${noteID}`);
     };
 
     return (
