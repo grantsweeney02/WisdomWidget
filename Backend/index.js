@@ -1,4 +1,5 @@
 const express = require("express");
+var cors = require("cors")
 const admin = require("firebase-admin");
 
 var serviceAccount = require("./api_keys.json");
@@ -11,6 +12,7 @@ const db = admin.firestore();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send("Hello, Firebase!");
@@ -87,6 +89,20 @@ app.post("/retrieveUserData", async (req, res) => {
         res.status(500).send("Error retrieving or adding user");
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
