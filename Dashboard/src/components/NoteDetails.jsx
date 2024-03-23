@@ -1,11 +1,16 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import "../styles/NoteDetails.css"
 
 const NoteDetails = ({}) => {
 	const { noteID } = useParams()
+    const navigate = useNavigate()
 
 	// get note info from db
 	const data = demoResponse // from fetch
+
+    const handleBack = () => {
+        navigate(-1);
+    }
 
 	const Keywords = Object.entries(data.note.keywords).map(([keyword, definition]) => (
 		<div key={keyword} className="keyword-container">
@@ -23,6 +28,7 @@ const NoteDetails = ({}) => {
 					<h1>
 						{data.assignmentName} - {data.note.name}
 					</h1>
+                    <button onClick={() => handleBack()}>Back</button>
 					{data.note.url && (
 						<h4>
 							Source: <a href={data.note.url}>{data.note.url}</a>

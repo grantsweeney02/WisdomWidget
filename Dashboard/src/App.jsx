@@ -5,6 +5,8 @@ import NoteDetails from "./components/NoteDetails"
 import ClassesSidebar from "./components/ClassesSidebar"
 import AssignmentDetails from "./components/AssignmentDetails"
 
+import "./styles/theme.css"
+
 function App() {
 	const loggedIn = true
 

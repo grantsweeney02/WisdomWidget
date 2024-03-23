@@ -36,7 +36,7 @@ const AssignmentDetails = ({}) => {
                     <Citations urls={getAllNoteUrls(assignment.notes)} />
                     <h4>More Resources: </h4>
                     {assignment.urlRecs.map((url, index) => (
-                        <URLRec url={url} />
+                        <URLRec key={index} url={url} />
                     ))}
                 </div>
             )}
