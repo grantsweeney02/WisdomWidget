@@ -1,19 +1,18 @@
-import ClassesSidebar from "./ClassesSidebar";
-import DashboardContent from "./DashboardContent";
-import { useEffect, useState } from "react";
+import ClassesSidebar from "./ClassesSidebar"
+import DashboardContent from "./DashboardContent"
+import { useEffect, useState } from "react"
 
 const Dashboard = ({ data }) => {
-    const [activeAssignment, setActiveAssignment] = useState(null);
+	const [activeAssignment, setActiveAssignment] = useState(null)
 
-    return (
-        <div className="row">
-            <ClassesSidebar
-                classes={data.classes}
-                setActiveAssignment={setActiveAssignment}
-            />
-            <DashboardContent assignment={activeAssignment} />
-        </div>
-    );
-};
+	return (
+		<div className="container">
+			<div className="row">
+				<ClassesSidebar classes={data.classes} setActiveAssignment={setActiveAssignment} />
+				<DashboardContent assignment={activeAssignment} />
+			</div>
+		</div>
+	)
+}
 
-export default Dashboard;
+export default Dashboard
