@@ -11,9 +11,6 @@ const Login = ({ data, setUserData }) => {
 
     const handleLogin = async () => {
         const response = await signInWithGooglePopup();
-
-        console.log(response);
-
         const request = {
             uid: response._tokenResponse.localId,
             email: response.user.email,
@@ -34,7 +31,7 @@ const Login = ({ data, setUserData }) => {
                 console.log("Request: ", request);
                 try {
                     const response = await axios.post(
-                        "http://localhost:8000/classes/retrieveUserData",
+                        "http://localhost:8000/users/retrieveUserData",
                         request
                     );
                     console.log("Response: ", response);
