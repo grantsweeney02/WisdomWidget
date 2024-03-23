@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import dummyUser from "../../dummyUser.json";
 import { auth } from "../../firebaseConfig";
-
+import LogoutIcon from '@mui/icons-material/Logout';
 import "../styles/ClassesSidebar.css";
 import { useState } from "react";
 
@@ -88,7 +88,7 @@ const ClassesSidebar = ({}) => {
                 className="btn btn-danger sidebar-logout-button"
                 onClick={() => handleLogout()}
             >
-                Logout
+                <LogoutIcon />
             </button>
         </nav>
     );

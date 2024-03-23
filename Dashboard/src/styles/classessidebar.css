@@ -65,4 +65,5 @@
 .sidebar-logout-button {
     position: absolute;
     bottom: 1rem;
+    color: var(--text-primary);
 }

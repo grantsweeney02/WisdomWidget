@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom"
 import "../styles/NoteDetails.css"
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const NoteDetails = ({}) => {
 	const { noteID } = useParams()
@@ -29,7 +30,7 @@ const NoteDetails = ({}) => {
 						{data.assignmentName} - {data.note.name}
 					</h1>
 					<button className="btn back-button" onClick={() => handleBack()}>
-						&lsaquo; Back
+						<ArrowBackIosNewIcon />
 					</button>
 					<p>{data.note.summary}</p>
 					<div className="keywords">{Keywords}</div>
