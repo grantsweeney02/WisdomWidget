@@ -80,7 +80,7 @@ const ClassesSidebar = ({}) => {
             </div>
             <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-danger sidebar-logout-button"
                 onClick={() => auth.signOut()}
             >
                 Logout
