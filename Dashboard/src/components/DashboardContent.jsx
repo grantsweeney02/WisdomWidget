@@ -1,4 +1,5 @@
 import Citations from "./Citations"
+import NoteCard from "./NoteCard"
 
 const DashboardContent = ({ assignment }) => {
 	const getAllNoteUrls = (notes) => {
@@ -17,7 +18,7 @@ const DashboardContent = ({ assignment }) => {
 					{assignment.due ? <h4>Due Date: {assignment.due}</h4> : null}
 					<h4>Notes: </h4>
 					{assignment.notes.map((note, index) => (
-						<p key={index}>{note.name}</p>
+						<NoteCard key={index} note={note} />
 					))}
 					<Citations urls={getAllNoteUrls(assignment.notes)} />
 					<h4>More Resources: </h4>
