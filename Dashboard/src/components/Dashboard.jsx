@@ -3,17 +3,15 @@ import DashboardContent from "./DashboardContent";
 import { useEffect, useState } from "react";
 
 const Dashboard = ({ data }) => {
-    const [activeClass, setActiveClass] = useState(data.classes[0]);
-    const [activeAssignment, setActiveAssignment] = useState(data.classes[0].assignments[0]);
+    const [activeAssignment, setActiveAssignment] = useState(null);
 
     return (
         <div>
             <ClassesSidebar
                 classes={data.classes}
-                setActiveClass={setActiveClass}
+                setActiveAssignment={setActiveAssignment}
             />
-            <h1>{activeClass.name}</h1>
-            <DashboardContent assignment={activeAssignment}/>
+            <DashboardContent assignment={activeAssignment} />
         </div>
     );
 };
