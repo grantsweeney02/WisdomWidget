@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom"
 
 const DashboardContent = ({}) => {
 	const { assignmentID } = useParams()
-    console.log(assignmentID)
 
 	// fetch assignment info
     const response = dummyUser

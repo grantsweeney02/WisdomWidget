@@ -6,14 +6,16 @@ import ClassesSidebar from "./components/ClassesSidebar"
 import DashboardContent from "./components/DashboardContent"
 
 function App() {
+	const loggedIn = true
+
 	return (
 		<>
 			<BrowserRouter>
 				<div className="container-fluid">
 					<div className="row">
-						<ClassesSidebar />
+						{loggedIn && <ClassesSidebar />}
 						<Routes>
-							<Route path="/" element={<Dashboard data={dummyUser} />} />
+							<Route path="/" element={<Dashboard />} />
 							<Route path="/:assignmentID" element={<DashboardContent data={dummyUser} />} />
 							<Route path="/:assignmentID/:noteID" element={<NoteDetails />} />
 						</Routes>
