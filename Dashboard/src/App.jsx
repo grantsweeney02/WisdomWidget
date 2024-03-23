@@ -8,7 +8,7 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Dashboard data={dummyUser} />} />
-                <Route path="/notes/:noteID" element={<NoteDetails />} />
+                <Route path="/notes/:noteID" element={<NoteDetails  />} />
 			</Routes>
 		</BrowserRouter>
 	)
