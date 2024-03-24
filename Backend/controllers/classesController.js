@@ -114,72 +114,29 @@ exports.deleteClass = async (req, res) => {
     const { uid, classId } = req.body;
 
     try {
-        const classRef = db
-            .collection("users")
-            .doc(uid)
-            .collection("classes")
-            .doc(classId);
+        const classRef = db.collection('users').doc(uid).collection('classes').doc(classId);
 
-        // Delete all assignments within the class
-        const assignments = await classRef
-            .collection("assignments")
-            .listDocuments();
-        const deleteAssignmentsPromises = assignments.map((assignment) => {
-            // Optional: Delete notes within each assignment before deleting the assignment
-            // This requires fetching each assignment's notes and deleting them individually
-            return deleteCollection(db, assignment.path, "notes").then(() =>
-                assignment.delete()
-            );
+        // Delete all assignments within the class, including their notes
+        const assignmentsSnapshot = await classRef.collection('assignments').get();
+        const deletePromises = assignmentsSnapshot.docs.map(async (assignmentDoc) => {
+            // Delete notes for each assignment
+            const notesSnapshot = await assignmentDoc.ref.collection('notes').get();
+            const deleteNotesPromises = notesSnapshot.docs.map(noteDoc => noteDoc.ref.delete());
+            await Promise.all(deleteNotesPromises);
+
+            // After all notes are deleted, delete the assignment itself
+            return assignmentDoc.ref.delete();
         });
-        await Promise.all(deleteAssignmentsPromises);
+
+        // Wait for all assignments and their notes to be deleted
+        await Promise.all(deletePromises);
 
         // Finally, delete the class document itself
         await classRef.delete();
 
-        res.status(200).send(
-            "Class and its assignments (including notes) have been deleted successfully."
-        );
+        res.status(200).send("Class and all related assignments and notes have been deleted successfully.");
     } catch (error) {
-        console.error("Error deleting class:", error);
-        res.status(500).send("Internal Server Error");
+        console.error('Error deleting class and its content:', error);
+        res.status(500).send('Internal Server Error');
     }
 };
-
-// Helper function to delete all documents in a collection (including subcollections)
-async function deleteCollection(db, collectionPath, subCollection) {
-    const collectionRef = db.collection(collectionPath);
-    const query = collectionRef.limit(500);
-
-    return new Promise((resolve, reject) => {
-        deleteQueryBatch(db, query, resolve, reject, subCollection);
-    });
-}
-
-async function deleteQueryBatch(db, query, resolve, reject, subCollection) {
-    try {
-        const snapshot = await query.get();
-
-        const batch = db.batch();
-        snapshot.docs.forEach((doc) => {
-            if (subCollection) {
-                // If there's a subcollection to delete, call deleteCollection on each document
-                deleteCollection(db, doc.ref.path, null);
-            } else {
-                batch.delete(doc.ref);
-            }
-        });
-
-        await batch.commit();
-
-        if (snapshot.size === 0) {
-            resolve();
-            return;
-        }
-
-        process.nextTick(() => {
-            deleteQueryBatch(db, query, resolve, reject, subCollection);
-        });
-    } catch (error) {
-        reject(error);
-    }
-}
