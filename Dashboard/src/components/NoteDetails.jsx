@@ -87,7 +87,7 @@ const NoteDetails = ({}) => {
 					<p>{data.summary}</p>
 					<div className="keywords">
 						{Keywords}
-						{addingKeyword ? (
+						{/* {addingKeyword ? (
 							<div className="keyword-add-container">
 								<input
 									className="form-control keyword-input"
@@ -119,7 +119,7 @@ const NoteDetails = ({}) => {
 									Add Keyword
 								</div>
 							</button>
-						)}
+						)} */}
 					</div>
 					{data.url && (
 						<h4>
