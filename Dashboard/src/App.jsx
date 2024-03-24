@@ -33,7 +33,7 @@ function App() {
     }, [userData]);
 
     return (
-        <UserContext.Provider value={userData}>
+        <UserContext.Provider value={{ userData, setUserData }}>
             <BrowserRouter>
                 <div className="container-fluid">
                     <div className="row">
