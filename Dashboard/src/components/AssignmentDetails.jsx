@@ -1,10 +1,13 @@
-import Citations from "./Citations"
-import NoteCard from "./NoteCard"
-import URLRec from "./URLRec"
-import dummyUser from "../../dummyUser.json"
-import { useParams } from "react-router-dom"
-import AddIcon from "@mui/icons-material/Add"
-import "../styles/AssignmentDetails.css"
+import Citations from "./Citations";
+import NoteCard from "./NoteCard";
+import URLRec from "./URLRec";
+import dummyUser from "../../dummyUser.json";
+import { useParams } from "react-router-dom";
+import AddIcon from "@mui/icons-material/Add";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../App";
+
+import "../styles/AssignmentDetails.css";
 
 const AssignmentDetails = ({}) => {
 	const { classIDassignmentID } = useParams()
@@ -14,14 +17,28 @@ const AssignmentDetails = ({}) => {
 	// fetch assignment info
 	const response = dummyUser
 	const assignment = response.classes[0].assignments[assignmentID - 1]
+    const { assignmentID } = useParams();
+    const [assignment, setAssignment] = useState(null);
+    const userData = useContext(UserContext);
 
-	const getAllNoteUrls = (notes) => {
-		const urls = []
-		notes.forEach((note) => {
-			urls.push(note.url)
-		})
-		return urls
-	}
+    useEffect(() => {
+        if (userData) {
+            // setAssignment() call the backend to get assignment
+        }    
+    }, [userData]);
+
+
+    const getAllNoteUrls = (notes) => {
+        const urls = [];
+        notes.forEach((note) => {
+            urls.push(note.url);
+        });
+        return urls;
+    };
+
+    useEffect(() => {
+        console.log("User Data From Context: ", userData);
+    }, [userData]);
 
 	return (
 		<>
@@ -54,4 +71,4 @@ const AssignmentDetails = ({}) => {
 	)
 }
 
-export default AssignmentDetails
+export default AssignmentDetails;

@@ -5,15 +5,12 @@ import "../styles/Login.css";
 import GoogleIcon from "@mui/icons-material/Google";
 import axios from "axios";
 
-const Login = ({ data }) => {
+const Login = ({ data, setUserData }) => {
     const [loggedIn, setLoggedIn] = useState(auth.currentUser);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         const response = await signInWithGooglePopup();
-
-        console.log(response);
-
         const request = {
             uid: response._tokenResponse.localId,
             email: response.user.email,
@@ -21,7 +18,6 @@ const Login = ({ data }) => {
         };
         const localId = response._tokenResponse.localId;
     };
-
 
     useEffect(() => {
         const checkUser = async (user) => {
@@ -31,25 +27,26 @@ const Login = ({ data }) => {
                     email: user.email,
                     displayName: user.displayName,
                 };
-                console.log("Request: ", request);
+                // console.log("Request: ", request);
                 try {
                     const response = await axios.post(
-                        "http://localhost:8000/retrieveUserData",
+                        "http://localhost:8000/users/retrieveUserData",
                         request
                     );
-                    console.log("Response: ", response);
+                    // console.log("Response: ", response);
+                    setUserData(response.data);
                     setLoggedIn(true);
                 } catch (error) {
                     console.error("Error retrieving user data: ", error);
                 }
             } else {
-                console.log("Logged out");
+                // console.log("Logged out");
                 setLoggedIn(false);
             }
         };
-    
+
         const unsubscribe = auth.onAuthStateChanged(checkUser);
-    
+
         return () => unsubscribe();
     }, []);
 
