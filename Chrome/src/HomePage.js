@@ -9,8 +9,8 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 	const [noteGenerating, setNoteGenerating] = useState(false)
 	const [newNoteGenerated, setNewNoteGenerated] = useState(false)
 	const [newNote, setNewNote] = useState({})
-    const [url, setUrl] = useState("");
-    const [source, setSource] = useState("");
+	const [url, setUrl] = useState("")
+	const [source, setSource] = useState("")
 
 	const handleNoteClick = (classId, assignmentId, noteId) => {
 		chrome.tabs.create({
@@ -20,68 +20,74 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 
 	function removeTagsFromDocument(htmlDocument) {
 		const $ = cheerio.load(htmlDocument)
-		$("script").remove()
 
-		return $.text()
-			.replace(/\s\s+/g, " ")
-			.trim()
-			.replace(/[\r\n]+/g, " ")
+		$("script").remove()
+		$("nav").remove()
+		$("img").remove()
+
+		let text = $.text().replace(/\s\s+/g, " ").trim()
+		text = text.replace(/[\r\n]+/g, " ")
+		text = text.replace(/"/g, '\\"')
+		text = text.replace(/<!--[\s\S]*?-->/g, "")
+		text = text.replace(/<iframe[\s\S]*?<\/iframe>/g, "")
+		text = text.replace(/<img[\s\S]*?\/>/g, "")
+		text = text.replace(/<style[\s\S]*?<\/style>/g, "")
+
+        console.log(text)
+		return text
 	}
 
-    const handleGenerateNotes = async () => {
-        console.log(
-            "Generating notes for assignment with id: ",
-            activeAssignmentId
-        );
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            chrome.tabs.sendMessage(
-                tabs[0].id,
-                { action: "getPageInfo" },
-                (response) => {
-                    if (chrome.runtime.lastError) {
-                        console.error(chrome.runtime.lastError.message);
-                        return;
-                    }
-                    setUrl(response.url);
-                    setSource(response.source);
-                }
-            );
-        });
-        const response = await fetch("http://localhost:8000/services/scan", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                text: cleanHTML,
-            }),
-        });
-        setNewNoteGenerated(true);
-        const newRequest = await response.json();
-        const response2 = await fetch(
-            "http://localhost:8000/notes/createNote",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name: newRequest.name,
-                    summary: newRequest.summary,
-                    keyValuePairs: newRequest.keyValuePairs,
-                    classId: activeClassId,
-                    assignmentId: activeAssignmentId,
-                    uid: uid,
-                    url: window.location.href,
-                }),
-            }
-        );
-        setNewNote(await response2.json());
-    };
+	const handleGenerateNotes = async () => {
+		setNoteGenerating(true)
+		console.log("Generating notes for assignment with id: ", activeAssignmentId)
+		await chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+			await chrome.tabs.sendMessage(tabs[0].id, { action: "getPageInfo" }, async (response) => {
+				if (chrome.runtime.lastError) {
+					console.error(chrome.runtime.lastError.message)
+					return
+				}
+                console.info(response)
+				setUrl(response.url)
+				setSource(response.source)
+				const cleanHTML = removeTagsFromDocument(response.source)
+                console.log(cleanHTML)
+				const response2 = await fetch("http://localhost:8000/services/scan", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						text: cleanHTML,
+					}),
+				})
+				setNoteGenerating(false)
+				setNewNoteGenerated(true)
+				const newRequest = await response2.json()
+				setNewNote(newRequest)
+				console.info(newRequest)
+				const response3 = await fetch("http://localhost:8000/notes/createNote", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						name: newRequest.name,
+						summary: newRequest.summary,
+						keyValuePairs: newRequest.keyValuePairs,
+						classId: activeClassId,
+						assignmentId: activeAssignmentId,
+						uid: uid,
+						url: window.location.href,
+					}),
+				})
+				console.info(response3)
+			})
+		})
+	}
 
 	return (
 		<div>
-			<h1> Home Page</h1>
+			<h1>Home Page</h1>
 			{/* dropdown to select class from */}
 			<select
 				onChange={(e) => {
