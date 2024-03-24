@@ -164,11 +164,11 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 					{newNoteGenerated && newNote && (
 						<div>
 							<h2 className="generated-note">Generated Note</h2>
-							<div className="card">
-								<div className="card-body">
-									<h5 className="card-title">{newNote.name}</h5>
-									<p className="card-text">{newNote.summary}</p>
-									<button className="btn btn-primary" onClick={() => handleNoteClick(activeClassId, activeAssignmentId, newNote.noteId)}>
+							<div className="note-card">
+								<div className="note-card-body">
+									<h5 className="note-card-title">{newNote.name}</h5>
+									<p className="note-card-text">{newNote.summary}</p>
+									<button className="view-dashboard-button" onClick={() => handleNoteClick(activeClassId, activeAssignmentId, newNote.noteId)}>
 										View in Dashboard
 									</button>
 								</div>
