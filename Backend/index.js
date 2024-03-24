@@ -12,6 +12,7 @@ const classRoutes = require("./routes/classes");
 const usersRoutes = require("./routes/users");
 const assignmentsRoutes = require("./routes/assignments");
 const notesRoutes = require("./routes/notes");
+const servicesRoutes = require("./routes/services");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/users", usersRoutes);
 app.use("/classes", classRoutes);
 app.use("/assignments", assignmentsRoutes);
 app.use("/notes", notesRoutes);
+app.use("/services", servicesRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
