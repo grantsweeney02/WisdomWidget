@@ -5,11 +5,10 @@ exports.retrieveUserData = async (req, res) => {
     try {
         const { uid, email, displayName } = req.body;
 
-        let userData = { email, displayName, classes: [] };
+        let userData = { uid, email, displayName, classes: [] };
 
         const userRef = db.collection("users").doc(uid);
         let userDoc = await userRef.get();
-
         if (!userDoc.exists) {
             await userRef.set({ email, displayName });
             const classRef = userRef.collection("classes").doc();
@@ -42,30 +41,39 @@ exports.retrieveUserData = async (req, res) => {
         }
         const classesSnapshot = await userRef.collection("classes").get();
         for (const classDoc of classesSnapshot.docs) {
-            const classData = classDoc.data();
+            const classData = {
+                id: classDoc.id,
+                ...classDoc.data(),
+                assignments: [],
+            };
             const assignmentsSnapshot = await classDoc.ref
                 .collection("assignments")
                 .get();
             classData.assignments = [];
 
             for (const assignmentDoc of assignmentsSnapshot.docs) {
-                const assignmentData = assignmentDoc.data();
+                const assignmentData = {
+                    id: assignmentDoc.id,
+                    ...assignmentDoc.data(),
+                    notes: [],
+                };
                 const notesSnapshot = await assignmentDoc.ref
                     .collection("notes")
                     .get();
-                assignmentData.notes = [];
 
                 for (const noteDoc of notesSnapshot.docs) {
-                    assignmentData.notes.push(noteDoc.data());
+                    const noteData = {
+                        id: noteDoc.id,
+                        ...noteDoc.data(),
+                    };
+                    assignmentData.notes.push(noteData);
                 }
 
                 classData.assignments.push(assignmentData);
             }
-
             userData.classes.push(classData);
         }
 
-        // User exists or has just been created, return their data including classes, assignments, and notes
         res.status(200).json(userData);
     } catch (error) {
         console.error("Error retrieving or adding user: ", error);

@@ -8,8 +8,12 @@ var serviceAccount = require("./api_keys.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
 });
+
+
 const classRoutes = require("./routes/classes");
 const usersRoutes = require("./routes/users");
+
+
 const app = express();
 
 app.use(cors());
