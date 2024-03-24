@@ -25,11 +25,29 @@ function Sidebar() {
     const [userInfo, setUserInfo] = useState({});
 
     const userData = dummyData;
+
+    // useEffect(() => {
+    //     const call = async () => {
+    //         const response = await fetch(
+    //             "http://localhost:8000/services/",
+    //             {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                 },
+    //             }
+    //         );
+    //         const data = await response.json();
+    //         console.log("Test Response:", data);
+    //     };
+    //     call();
+    // }, []);
+
     useEffect(() => {
-        chrome.storage.sync.get(['userData'], function(result) {
+        chrome.storage.sync.get(["userData"], function (result) {
             if (result.userData) {
                 console.log("victory");
-              setUserInfo(result.userData);
+                setUserInfo(result.userData);
             }
         });
         const messageListener = (message, sender, sendResponse) => {
@@ -40,13 +58,13 @@ function Sidebar() {
                 sendResponse({ status: "Action received" });
             }
         };
-            // Add the message listener
-            chrome.runtime.onMessage.addListener(messageListener);
+        // Add the message listener
+        chrome.runtime.onMessage.addListener(messageListener);
 
-            // Clean up the listener when the component unmounts
-            return () => {
-                chrome.runtime.onMessage.removeListener(messageListener);
-            };
+        //Clean up the listener when the component unmounts
+        return () => {
+            chrome.runtime.onMessage.removeListener(messageListener);
+        };
     }, []); // Empty dependency array means this effect runs once on mount
 
     const handleButtonClick = () => {
@@ -66,6 +84,30 @@ function Sidebar() {
         });
         handleCreateNote();
     };
+
+    useEffect(() => {
+        if (userInfo) {
+            const getAllUserInfo = async () => {
+                const response = await fetch(
+                    "http://localhost:8000/users/retrieveUserData",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            uid: userInfo.uid,
+                            displayName: userInfo.displayName,
+                            email: userInfo.email,
+                        }),
+                    }
+                );
+                const data = await response.json();
+                console.log("All user Info:", data);
+            };
+            getAllUserInfo();
+        }
+    }, [userInfo]);
 
     const handleCreateNote = async () => {
         const dataToSend = {
@@ -93,11 +135,12 @@ function Sidebar() {
             console.error("Error:", error);
         }
     };
+
     const handleGetUser = async (uid, displayName, email) => {
         const dataToSend = {
-            uid: uid,
-            displayName: displayName,
-            email: email,
+            uid: userInfo.uid,
+            displayName: userInfo.displayName,
+            email: userInfo.email,
         };
 
         try {
@@ -137,7 +180,7 @@ function Sidebar() {
     const handleTextActionNote = async (text) => {
         try {
             const response = await fetch(
-                "http://localhost:8000/services/note",
+                "http://localhost:8000/services/explain",
                 {
                     method: "POST",
                     headers: {
@@ -145,9 +188,6 @@ function Sidebar() {
                     },
                     body: JSON.stringify({
                         text: text,
-                        uid: userData.uid,
-                        classId: activeClassId,
-                        assignmentId: activeAssignmentId,
                     }),
                 }
             );
@@ -171,7 +211,7 @@ function Sidebar() {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        text: text,
+                        selectedText: text,
                     }),
                 }
             );
@@ -219,20 +259,42 @@ function Sidebar() {
         chrome.tabs.create({ url: "http://localhost:5173/" });
     };
 
-    const handleGenerateNotes = () => {
-        console.log(
-            "Generating notes for assignment with id: ",
-            activeAssignmentId
-        );
-    };
+    // const handleGenerateNotes = () => {
+    //     console.log(
+    //         "Generating notes for assignment with id: ",
+    //         activeAssignmentId
+    //     );
+    //     let html = document.documentElement.outerHTML;
+    //     let cleanHTML = removeTagsFromDocument(html);
+    //     const response = fetch("http://localhost:8000/services/scan", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             text: cleanHTML,
+    //         }),
+    //     });
+
+    // };
+
+    function removeTagsFromDocument(htmlDocument) {
+        const $ = cheerio.load(htmlDocument);
+        $("script").remove();
+
+        return $.text()
+            .replace(/\s\s+/g, " ")
+            .trim()
+            .replace(/[\r\n]+/g, " ");
+    }
 
     useEffect(() => {
         if (activeAssignmentId) {
-            userData.classes
+            userInfo.classes
                 .find((classObj) => classObj.id === activeClassId)
                 .assignments.find((assignment) => {
                     if (assignment.id === activeAssignmentId) {
-                        console.log(assignment.notes);
+                        console.log("Notes SIDEBAR: ", assignment.notes);
                         setNotesForAssignment(assignment.notes);
                     }
                 });
@@ -257,13 +319,14 @@ function Sidebar() {
 
             {homePage ? (
                 <HomePage
-                    classes={userData.classes}
+                    uid={userInfo.uid}
+                    classes={userInfo.classes}
                     activeClassId={activeClassId}
                     setActiveClassId={setActiveClassId}
                     activeAssignmentId={activeAssignmentId}
                     setActiveAssignmentId={setActiveAssignmentId}
                     notesForAssignment={notesForAssignment}
-                    handleGenerateNotes={handleGenerateNotes}
+                    // handleGenerateNotes={handleGenerateNotes}
                 />
             ) : (
                 ""
@@ -282,7 +345,7 @@ function Sidebar() {
             {textExplain ? (
                 <TextExplain
                     data={explanationResponse}
-                    uid={userData.uid}
+                    uid={userInfo.uid}
                     activeClassId={activeClassId}
                     activeAssignmentId={activeAssignmentId}
                 />
