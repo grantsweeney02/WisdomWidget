@@ -31,11 +31,11 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Login />} />
                             <Route
-                                path="/:assignmentID"
+                                path="/:classIDassignmentID"
                                 element={<AssignmentDetails data={dummyUser} />}
                             />
                             <Route
-                                path="/:assignmentID/:noteID"
+                                path="/:classIDassignmentID/:noteID"
                                 element={<NoteDetails />}
                             />
                         </Routes>

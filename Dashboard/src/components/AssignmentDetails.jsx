@@ -7,7 +7,9 @@ import AddIcon from "@mui/icons-material/Add"
 import "../styles/AssignmentDetails.css"
 
 const AssignmentDetails = ({}) => {
-	const { assignmentID } = useParams()
+	const { classIDassignmentID } = useParams()
+	const classID = classIDassignmentID.split("-")[0]
+	const assignmentID = classIDassignmentID.split("-")[1]
 
 	// fetch assignment info
 	const response = dummyUser
@@ -32,14 +34,14 @@ const AssignmentDetails = ({}) => {
 						{assignment.notes.map((note, index) => (
 							<NoteCard key={index} assignmentID={assignmentID} note={note} />
 						))}
-						<div className="card note-add-card">
+						{/* <div className="card note-add-card">
 							<div className="card-body note-add-body">
 								<p className="card-text note-card-text">
 									<AddIcon />
 									Add
 								</p>
 							</div>
-						</div>
+						</div> */}
 					</div>
 					<Citations urls={getAllNoteUrls(assignment.notes)} />
 					<h4>More Resources: </h4>
