@@ -1,5 +1,6 @@
 import React from "react"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import "./styles/bootstrap.min.css";
 
 const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId, setActiveAssignmentId, notesForAssignment, handleGenerateNotes }) => {
 	const handleNoteClick = (classId, assignmentId, noteId) => {

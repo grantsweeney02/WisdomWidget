@@ -5,6 +5,7 @@ import TextExplain from "./TextExplain";
 import TextSearch from "./TextSearch";
 import "./styles/styles.css";
 import dummyData from "./dummyData";
+import "./styles/bootstrap.min.css";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function Sidebar() {
@@ -18,12 +19,19 @@ function Sidebar() {
     const [activeAssignmentId, setActiveAssignmentId] = useState(null);
     const [notesForAssignment, setNotesForAssignment] = useState([]);
     const [explanationResponse, setExplanationResponse] = useState({});
-    const [searchResponse, setSearchResponse] = useState({});
+    const [searchResponse, setSearchResponse] = useState([]);
     const [noteResponse, setNoteResponse] = useState({});
     const [currentPhrase, setCurrentPhrase] = useState("");
+    const [userInfo, setUserInfo] = useState({});
 
     const userData = dummyData;
     useEffect(() => {
+        chrome.storage.sync.get(['userData'], function(result) {
+            if (result.userData) {
+                console.log("victory");
+              setUserInfo(result.userData);
+            }
+        });
         const messageListener = (message, sender, sendResponse) => {
             if (message.type === "textAction") {
                 console.log(`Action: ${message.action}, Text: ${message.text}`);
@@ -31,11 +39,7 @@ function Sidebar() {
                 handleTextAction(message.action, message.text);
                 sendResponse({ status: "Action received" });
             }
-            if (message.type === "getUser") {
-                console.log(uid);
-                handleGetUser(message.uid, message.displayName, message.email);
-                sendResponse({ status: "Action reveived" });
-            }
+        };
             // Add the message listener
             chrome.runtime.onMessage.addListener(messageListener);
 
@@ -43,7 +47,6 @@ function Sidebar() {
             return () => {
                 chrome.runtime.onMessage.removeListener(messageListener);
             };
-        };
     }, []); // Empty dependency array means this effect runs once on mount
 
     const handleButtonClick = () => {
