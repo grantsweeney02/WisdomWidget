@@ -5,6 +5,8 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import AddIcon from "@mui/icons-material/Add"
 import CheckIcon from "@mui/icons-material/Check"
 import CloseIcon from "@mui/icons-material/Close"
+import { useEffect, useContext } from "react"
+import { UserContext } from "../App"
 
 const NoteDetails = ({}) => {
 	const { classIDassignmentID, noteID } = useParams()
@@ -15,6 +17,26 @@ const NoteDetails = ({}) => {
 	const [newDefinition, setNewDefinition] = useState("")
 	const [addingKeyword, setAddingKeyword] = useState(false)
 	const [data, setData] = useState(demoResponse) // Initial data from demoResponse
+
+	const userData = useContext(UserContext).userData;
+
+    useEffect(() => {
+        if (userData) {
+            const populateNote = async () => {
+                const uid = userData.uid;
+                const body = {
+                    uid: uid,
+                    classId: classID,
+                    assignmentId: assignmentID,
+					noteId: noteID
+                };
+                // const response = await axios.get("http://localhost:8000/assignments/getAssignment", body);
+                // console.log("Note Response: ", response.data);
+                // setData(response.data);
+            };
+            populateNote();
+        }
+    }, [userData]);
 
 	const handleBack = () => {
 		navigate(-1)

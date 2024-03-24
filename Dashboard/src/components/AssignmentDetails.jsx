@@ -29,9 +29,10 @@ const AssignmentDetails = ({}) => {
                     classId: classID,
                     assignmentId: assignmentID,
                 };
-                // const response = await axios.get("http://localhost:8000/assignments/getAssignment", body);
-                // console.log("Assignment Response: ", response.data);
-                // setAssignment(response.data);
+                console.log("Body: ", body);
+                const response = await axios.post("http://localhost:8000/assignments/getAssignment", body);
+                console.log("Assignment Response: ", response.data);
+                setAssignment(response.data);
             };
             populateAssignment();
         }
