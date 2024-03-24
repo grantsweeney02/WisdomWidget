@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "React Sidebar Extension",
+    "version": "1.0",
+    "description": "A Chrome Extension that toggles a sidebar",
+    "permissions": ["storage", "activeTab", "scripting", "http://localhost/*"],
+    "action": {
+      "default_icon": "logo192.png"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["contentScript.js", "toggleSidebar.js"]
+
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["static/js/*.js", "index.html", "build/*"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
+  

@@ -1,9 +1,10 @@
 import React from 'react';
+import Sidebar from './Sidebar';
 
 function App() {
   return (
-    <div style={{ padding: "20px", fontSize: "20px", color: "black", backgroundColor: "white", height: "100%", boxSizing: "border-box" }}>
-      Hello World!
+    <div style={{padding: "30px"}}>
+      <Sidebar/>
     </div>
   );
 }
