@@ -265,28 +265,51 @@ function Sidebar() {
     };
 
     const handleTextActionExplain = async (text) => {
-        try {
-            const response = await fetch(
-                "http://localhost:8000/services/explain",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ text: text }),
+        let attempts = 0;
+        let success = false;
+    
+        while (attempts < 5 && !success) {
+            try {
+                const response = await fetch(
+                    "http://localhost:8000/services/explain",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ text: text }),
+                    }
+                );
+    
+                if (!response.ok) {
+                    // If response is not OK, throw an error and trigger the catch block
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            );
-            const responseJSON = await response.json();
-            console.log("Response: ", responseJSON);
-            setExplanationResponse(responseJSON);
-            setTextNote(false);
-            setTextExplain(true);
-            setTextSearch(false);
-            setHomePage(false);
-        } catch (error) {
-            console.error("Error:", error);
+    
+                const responseJSON = await response.json();
+                console.log("Response: ", responseJSON);
+                setExplanationResponse(responseJSON);
+                setTextNote(false);
+                setTextExplain(true);
+                setTextSearch(false);
+                setHomePage(false);
+                success = true; // Update success to true to break the loop
+            } catch (error) {
+                console.error(`Attempt ${attempts + 1} Error:`, error);
+                attempts++;
+                if (attempts < 5) {
+                    // Optionally, wait for a bit before retrying (e.g., 1 second)
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
+        }
+    
+        if (!success) {
+            // Handle the case where all attempts failed
+            console.error("All attempts to fetch explanation have failed.");
         }
     };
+    
 
     const handleHomeClick = () => {
         setTextNote(false);
