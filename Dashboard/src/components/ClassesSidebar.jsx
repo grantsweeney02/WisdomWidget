@@ -1,85 +1,108 @@
-import { useNavigate, useParams } from "react-router-dom"
-import dummyUser from "../../dummyUser.json"
-import { auth } from "../../firebaseConfig"
-import LogoutIcon from "@mui/icons-material/Logout"
-import AddIcon from "@mui/icons-material/Add"
-import CloseIcon from "@mui/icons-material/Close"
-import CheckIcon from "@mui/icons-material/Check"
-import "../styles/ClassesSidebar.css"
-import { useState } from "react"
+import { useNavigate, useParams } from "react-router-dom";
+import dummyUser from "../../dummyUser.json";
+import { auth } from "../../firebaseConfig";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
+import "../styles/ClassesSidebar.css";
+import { useState, useContext, useEffect } from "react";
+import { UserContext } from "../App";
 
 const ClassesSidebar = ({}) => {
-	const navigate = useNavigate()
-	const [activeAssignment, setActiveAssignment] = useState(false)
-	const [isAddingClass, setIsAddingClass] = useState(false)
-	const [newClassName, setNewClassName] = useState("")
+    const navigate = useNavigate();
+    const [classes, setClasses] = useState([]);
+    const [activeAssignment, setActiveAssignment] = useState(false);
+    const [isAddingClass, setIsAddingClass] = useState(false);
+    const [newClassName, setNewClassName] = useState("");
 
-	// fetch userdata from backend
-	const response = dummyUser
-	const classes = response.classes
+    const userData = useContext(UserContext).userData;
 
-	const handleAssignmentChange = (classID, assignment) => {
-		setActiveAssignment(assignment)
-		navigate(`/${classID}-${assignment.id}`)
-	}
+    useEffect(() => {
+        if (userData) {
+            setClasses(userData.classes);
+        }
+    }, [userData]);
 
-	const handleLogout = async () => {
-		await auth.signOut()
-		navigate("/")
-	}
+    const handleAssignmentChange = (classID, assignment) => {
+        setActiveAssignment(assignment);
+        navigate(`/${classID}-${assignment.id}`);
+    };
 
-	const handleAddClass = () => {
-		setIsAddingClass(true)
-	}
+    const handleLogout = async () => {
+        await auth.signOut();
+        navigate("/");
+    };
 
-	const handleCancelAddClass = () => {
-		setIsAddingClass(false)
-		setNewClassName("")
-	}
+    const handleAddClass = () => {
+        setIsAddingClass(true);
+    };
 
-	const handleConfirmAddClass = () => {
-		setIsAddingClass(false)
-		setNewClassName("")
-	}
+    const handleCancelAddClass = () => {
+        setIsAddingClass(false);
+        setNewClassName("");
+    };
 
-	const ClassAccordionItems = classes.map((classData, index) => {
-		const AssignmentButtons = classData.assignments.map((assignmentData, index2) => {
-			return (
-				<button
-					key={"" + assignmentData.id}
-					type="button"
-					className={"btn btn-primary assignment-button" + (activeAssignment.id == assignmentData.id ? " active" : "")}
-					onClick={() => handleAssignmentChange(classData.id, assignmentData)}
-				>
-					{assignmentData.name}
-				</button>
-			)
-		})
+    const handleConfirmAddClass = () => {
+        setIsAddingClass(false);
+        setNewClassName("");
+    };
 
-		return (
-			<div key={"" + classData.id} className="accordion-item">
-				<h2 className="accordion-header">
-					<button
-						className="accordion-button collapsed"
-						type="button"
-						data-bs-toggle="collapse"
-						data-bs-target={"#collapse-" + classData.id}
-						aria-expanded="false"
-						aria-controls={"collapse-" + classData.id}
-					>
-						{classData.name}
-					</button>
-				</h2>
-				<div id={"collapse-" + classData.id} className="accordion-collapse collapse" data-bs-parent="#classesAccordion">
-					<div className="accordion-body">
-						<div className="btn-group-vertical assignment-buttons" role="group" aria-label={classData.name + " Assignment Buttons"}>
-							{AssignmentButtons}
-						</div>
-					</div>
-				</div>
-			</div>
-		)
-	})
+    const ClassAccordionItems = classes.map((classData, index) => {
+        const AssignmentButtons = classData.assignments.map(
+            (assignmentData, index2) => {
+                return (
+                    <button
+                        key={"" + assignmentData.id}
+                        type="button"
+                        className={
+                            "btn btn-primary assignment-button" +
+                            (activeAssignment.id == assignmentData.id
+                                ? " active"
+                                : "")
+                        }
+                        onClick={() =>
+                            handleAssignmentChange(classData.id, assignmentData)
+                        }
+                    >
+                        {assignmentData.name}
+                    </button>
+                );
+            }
+        );
+
+        return (
+            <div key={"" + classData.id} className="accordion-item">
+                <h2 className="accordion-header">
+                    <button
+                        className="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target={"#collapse-" + classData.id}
+                        aria-expanded="false"
+                        aria-controls={"collapse-" + classData.id}
+                    >
+                        {classData.name}
+                    </button>
+                </h2>
+                <div
+                    id={"collapse-" + classData.id}
+                    className="accordion-collapse collapse"
+                    data-bs-parent="#classesAccordion"
+                >
+                    <div className="accordion-body">
+                        <div
+                            className="btn-group-vertical assignment-buttons"
+                            role="group"
+                            aria-label={classData.name + " Assignment Buttons"}
+                        >
+                            {AssignmentButtons}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    });
 
 	return (
 		<nav className="classes-sidebar col-3">
@@ -118,4 +141,4 @@ const ClassesSidebar = ({}) => {
 	)
 }
 
-export default ClassesSidebar
+export default ClassesSidebar;
