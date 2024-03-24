@@ -29,11 +29,12 @@
 }
 
 .delete-assignment-button {
-	width: 100%;
+	width: 30%;
 	background-color: var(--bg-primary);
 	color: var(--text-secondary);
 	text-align: left;
 	margin-top: 1rem;
+	border: 1px dashed var(--danger);
 }
 
 .delete-assignment-button:hover {

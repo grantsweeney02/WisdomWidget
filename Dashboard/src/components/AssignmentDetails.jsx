@@ -99,7 +99,7 @@ const AssignmentDetails = ({}) => {
 					{assignment.recUrls.map((url, index) => (
 						<URLRec key={index} url={url} />
 					))}
-					<button className="btn delete-class-button" onClick={() => setShowDeleteAssignmentModal(true)}>
+					<button className="btn delete-assignment-button" onClick={() => setShowDeleteAssignmentModal(true)}>
 						<DeleteIcon />
 						Delete Assignment
 					</button>

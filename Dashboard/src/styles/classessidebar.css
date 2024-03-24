@@ -65,15 +65,18 @@
 	width: 100%;
 	text-align: left;
 	background-color: var(--bg-secondary);
+	color: var(--text-primary);
 	border: none;
 }
 
 .assignment-button.active {
 	background-color: var(--accent-secondary);
+	color: var(--text-primary);
 }
 
 .assignment-button:hover {
 	background-color: var(--accent-secondary);
+	color: var(--text-primary);
 }
 
 .sidebar-logout-button {
