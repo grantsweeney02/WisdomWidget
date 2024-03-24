@@ -56,6 +56,8 @@ async function fetchExplanation(query) {
                 generate a summary (which represents a brief overview of the text and is 10-20 words long), generate an explanation (which explans the text and is 20-40 words long), finally generate a key word for this text (2-4 words long).
                 Then output to the format of the JSON below. The keyValuePair map will have one entry and it will be the Key Word mapped to the explanation.
                 
+                If the text is not in english or code, first translate it to english.
+
                 Output the data in a JSON file with the following format:
                 {
                     name: "",
