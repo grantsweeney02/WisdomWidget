@@ -1,6 +1,6 @@
 import React from "react"
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import "./styles/bootstrap.min.css";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew"
+import "./styles/bootstrap.min.css"
 
 const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId, setActiveAssignmentId, notesForAssignment, handleGenerateNotes }) => {
 	const handleNoteClick = (classId, assignmentId, noteId) => {
@@ -51,11 +51,12 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 							<div className="note-card-body">
 								<h5 className="note-card-title">{note.name}</h5>
 								<p className="note-card-text">{note.summary}</p>
-
-								<button className="view-dashboard-button" onClick={() => handleNoteClick(activeClassId, activeAssignmentId, note.noteId)}>
-									View in Dashboard
-                                    <OpenInNewIcon fontSize="small" />
-								</button>
+								<div className="note-card-footer">
+									<button className="view-dashboard-button" onClick={() => handleNoteClick(activeClassId, activeAssignmentId, note.noteId)}>
+										View in Dashboard
+										<OpenInNewIcon fontSize="small" />
+									</button>
+								</div>
 							</div>
 						</div>
 					))}
