@@ -9,6 +9,8 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 	const [noteGenerating, setNoteGenerating] = useState(false)
 	const [newNoteGenerated, setNewNoteGenerated] = useState(false)
 	const [newNote, setNewNote] = useState({})
+    const [url, setUrl] = useState("");
+    const [source, setSource] = useState("");
 
 	const handleNoteClick = (classId, assignmentId, noteId) => {
 		chrome.tabs.create({
@@ -26,44 +28,56 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 			.replace(/[\r\n]+/g, " ")
 	}
 
-	const handleGenerateNotes = async () => {
-		setNoteGenerating(true)
-		console.log("Generating notes for assignment with id: ", activeAssignmentId)
-		iframe = document.getElementById("my-extension-sidebar")
-		console.log(document.documentElement.outerHTML)
-		let html = document.documentElement.outerHTML.outerHTML
-		my - extension - sidebar
-		let cleanHTML = removeTagsFromDocument(html)
-		console.log("Clean HTML", cleanHTML)
-		const response = await fetch("http://localhost:8000/services/scan", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				text: cleanHTML,
-			}),
-		})
-		setNoteGenerating(false)
-		setNewNoteGenerated(true)
-		const newRequest = await response.json()
-		const response2 = await fetch("http://localhost:8000/notes/createNote", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				name: newRequest.name,
-				summary: newRequest.summary,
-				keyValuePairs: newRequest.keyValuePairs,
-				classId: activeClassId,
-				assignmentId: activeAssignmentId,
-				uid: uid,
-				url: window.location.href,
-			}),
-		})
-		setNewNote(await response2.json())
-	}
+    const handleGenerateNotes = async () => {
+        console.log(
+            "Generating notes for assignment with id: ",
+            activeAssignmentId
+        );
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            chrome.tabs.sendMessage(
+                tabs[0].id,
+                { action: "getPageInfo" },
+                (response) => {
+                    if (chrome.runtime.lastError) {
+                        console.error(chrome.runtime.lastError.message);
+                        return;
+                    }
+                    setUrl(response.url);
+                    setSource(response.source);
+                }
+            );
+        });
+        const response = await fetch("http://localhost:8000/services/scan", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                text: cleanHTML,
+            }),
+        });
+        setNewNoteGenerated(true);
+        const newRequest = await response.json();
+        const response2 = await fetch(
+            "http://localhost:8000/notes/createNote",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: newRequest.name,
+                    summary: newRequest.summary,
+                    keyValuePairs: newRequest.keyValuePairs,
+                    classId: activeClassId,
+                    assignmentId: activeAssignmentId,
+                    uid: uid,
+                    url: window.location.href,
+                }),
+            }
+        );
+        setNewNote(await response2.json());
+    };
 
 	return (
 		<div>
