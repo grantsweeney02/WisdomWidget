@@ -2,7 +2,7 @@ const {
     fetchResources,
     fetchExplanation,
     fetchScan,
-} = require("../services/openAIService");
+} = require("../services/AiService");
 
 exports.searchResources = async (req, res) => {
     const { selectedText } = req.body;
