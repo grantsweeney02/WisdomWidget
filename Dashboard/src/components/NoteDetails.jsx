@@ -69,25 +69,6 @@ const NoteDetails = ({}) => {
         setAddingKeyword(false);
     };
 
-    useEffect(() => {
-        if (data) {
-            console.log("Mapping over", Object.entries(data.keyValuePairs[0]));
-            if (data.keyValuePairs[0]) {
-                const k = Object.entries(data.keyValuePairs[0]).map(
-                    ([keyword, definition]) => (
-                        <div key={keyword} className="keyword-container">
-                            <div className="keyword-card">
-                                <h5 className="keyword">{keyword}</h5>
-                                <p className="definition">{definition}</p>
-                            </div>
-                        </div>
-                    )
-                );
-            }
-            setKeywords(k);
-        }
-    }, [data]);
-
     return (
         <>
             {data && (
@@ -101,7 +82,24 @@ const NoteDetails = ({}) => {
                     </button>
                     <p>{data.summary}</p>
                     <div className="keywords">
-                        {Keywords}
+                        {data &&
+                            Object.entries(data.keyValuePairs).map(
+                                ([keyword, definition]) => (
+                                    <div
+                                        key={keyword}
+                                        className="keyword-container"
+                                    >
+                                        <div className="keyword-card">
+                                            <h5 className="keyword">
+                                                {keyword}
+                                            </h5>
+                                            <p className="definition">
+                                                {definition}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            )}
                         {/* {addingKeyword ? (
 							<div className="keyword-add-container">
 								<input
