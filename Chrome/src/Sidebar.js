@@ -20,6 +20,7 @@ function Sidebar() {
     const [searchResponse, setSearchResponse] = useState([]);
     const [noteResponse, setNoteResponse] = useState({});
     const [currentPhrase, setCurrentPhrase] = useState("");
+    const [userInfo, setUserInfo] = useState({});
 
     const userData = dummyData;
 
@@ -41,6 +42,12 @@ function Sidebar() {
     // }, []);
 
     useEffect(() => {
+        chrome.storage.sync.get(['userData'], function(result) {
+            if (result.userData) {
+                console.log("victory");
+              setUserInfo(result.userData);
+            }
+        });
         const messageListener = (message, sender, sendResponse) => {
             if (message.type === "textAction") {
                 console.log(`Action: ${message.action}, Text: ${message.text}`);
