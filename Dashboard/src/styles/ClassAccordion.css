@@ -25,11 +25,6 @@
 	color: var(--text-primary);
 }
 
-.add-assignment-confirms button:hover {
-	background-color: var(--accent-primary);
-	color: var(--text-primary);
-}
-
 .delete-class-button {
 	width: 100%;
 	background-color: var(--bg-primary);
@@ -40,5 +35,5 @@
 
 .delete-class-button:hover {
 	color: var(--text-secondary);
-	background-color: var(--accent-secondary);
+	background-color: var(--danger);
 }

@@ -61,7 +61,7 @@ const ClassAccordion = ({ classData, activeAssignment, handleAssignmentChange, s
 			<button
 				key={assignmentData.id}
 				type="button"
-				className={"btn btn-primary assignment-button" + (activeAssignment.id == assignmentData.id ? " active" : "")}
+				className={"btn assignment-button" + (activeAssignment.id == assignmentData.id ? " active" : "")}
 				onClick={() => handleAssignmentChange(classData.id, assignmentData)}
 			>
 				{assignmentData.name}
@@ -99,10 +99,10 @@ const ClassAccordion = ({ classData, activeAssignment, handleAssignmentChange, s
 									onChange={(e) => setNewAssignmentName(e.target.value)}
 								/>
 								<div className="add-assignment-confirms">
-									<button type="button" className="btn" onClick={() => handleConfirmAddAssignment()}>
+									<button type="button" className="btn success-btn" onClick={() => handleConfirmAddAssignment()}>
 										<CheckIcon />
 									</button>
-									<button type="button" className="btn" onClick={() => handleCancelAddAssignment()}>
+									<button type="button" className="btn danger-btn" onClick={() => handleCancelAddAssignment()}>
 										<CloseIcon />
 									</button>
 								</div>

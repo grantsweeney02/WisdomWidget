@@ -65,15 +65,18 @@
 	width: 100%;
 	text-align: left;
 	background-color: var(--bg-secondary);
+	color: var(--text-primary);
 	border: none;
 }
 
 .assignment-button.active {
 	background-color: var(--accent-secondary);
+	color: var(--text-primary);
 }
 
 .assignment-button:hover {
 	background-color: var(--accent-secondary);
+	color: var(--text-primary);
 }
 
 .sidebar-logout-button {
@@ -125,8 +128,13 @@
 	color: var(--text-primary);
 }
 
-.add-class-confirms button:hover {
-	background-color: var(--accent-primary);
+.success-btn:hover {
+	background-color: var(--success);
+	color: var(--text-primary);
+}
+
+.danger-btn:hover {
+	background-color: var(--danger);
 	color: var(--text-primary);
 }
 
