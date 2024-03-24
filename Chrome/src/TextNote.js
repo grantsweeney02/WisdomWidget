@@ -1,11 +1,40 @@
 import React from "react";
 
-const TextNote = () => {
+const TextNote = ({ text, data }) => {
     return (
         <div>
-            <h1> Text Note </h1>
+            <h1 className="mb-4">Text Note</h1>
+            <p className="lead">{data.name}</p>
+            <p>{data.summary}</p>
+            <div>
+                {Object.keys(data.keyValuePairs).map((key, index) => (
+                    <div key={index} className="card-body">
+                        <h5 className="card-title">{key}</h5>
+                        <p className="card-text">{data.keyValuePairs[key]}</p>
+                    </div>
+                ))}
+            </div>
+            <h4>Uploaded Note:</h4>
+            <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">{data.name}</h5>
+                    <p className="card-text">{data.summary}</p>
+                    <button
+                        className="btn btn-primary"
+                        onClick={() =>
+                            handleNoteClick(
+                                activeClassId,
+                                activeAssignmentId,
+                                data.noteId
+                            )
+                        }
+                    >
+                        View in Dashboard
+                    </button>
+                </div>
+            </div>
         </div>
     );
-}
+};
 
-export default TextNote
+export default TextNote;

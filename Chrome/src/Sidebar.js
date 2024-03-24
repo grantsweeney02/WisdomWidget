@@ -18,30 +18,32 @@ function Sidebar() {
     const [notesForAssignment, setNotesForAssignment] = useState([]);
     const [explanationResponse, setExplanationResponse] = useState({});
     const [searchResponse, setSearchResponse] = useState({});
+    const [noteResponse, setNoteResponse] = useState({});
     const [currentPhrase, setCurrentPhrase] = useState("");
 
     const userData = dummyData;
-  useEffect(() => {
-    const messageListener = (message, sender, sendResponse) => {
-      if (message.type === "textAction") {
-        console.log(`Action: ${message.action}, Text: ${message.text}`);
-        // Here, you can handle the action, such as updating state or calling an API
-        handleTextAction(message.action, message.text);
-        sendResponse({ status: "Action received" });
-      }
-      if (message.type === "getUser") {
-        console.log(uid);
-        handleGetUser(message.uid, message.displayName, message.email);
-        sendResponse({ status: "Action reveived" });
-      }
-        // Add the message listener
-        chrome.runtime.onMessage.addListener(messageListener);
+    useEffect(() => {
+        const messageListener = (message, sender, sendResponse) => {
+            if (message.type === "textAction") {
+                console.log(`Action: ${message.action}, Text: ${message.text}`);
+                // Here, you can handle the action, such as updating state or calling an API
+                handleTextAction(message.action, message.text);
+                sendResponse({ status: "Action received" });
+            }
+            if (message.type === "getUser") {
+                console.log(uid);
+                handleGetUser(message.uid, message.displayName, message.email);
+                sendResponse({ status: "Action reveived" });
+            }
+            // Add the message listener
+            chrome.runtime.onMessage.addListener(messageListener);
 
-        // Clean up the listener when the component unmounts
-        return () => {
-            chrome.runtime.onMessage.removeListener(messageListener);
+            // Clean up the listener when the component unmounts
+            return () => {
+                chrome.runtime.onMessage.removeListener(messageListener);
+            };
         };
-    }}, []); // Empty dependency array means this effect runs once on mount
+    }, []); // Empty dependency array means this effect runs once on mount
 
     const handleButtonClick = () => {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -86,34 +88,37 @@ function Sidebar() {
         } catch (error) {
             console.error("Error:", error);
         }
-      };
-  const handleGetUser = async (uid, displayName, email) => {
-    const dataToSend = {
-      uid: uid,
-      displayName: displayName,
-      email: email,
     };
+    const handleGetUser = async (uid, displayName, email) => {
+        const dataToSend = {
+            uid: uid,
+            displayName: displayName,
+            email: email,
+        };
 
-    try {
-      const response = await fetch("http://localhost:8000/users/retrieveUserData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
-      });
+        try {
+            const response = await fetch(
+                "http://localhost:8000/users/retrieveUserData",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(dataToSend),
+                }
+            );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-      const data = await response.json();
-      console.log("Success:", data);
-      // Handle success - update UI
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
+            const data = await response.json();
+            console.log("Success:", data);
+            // Handle success - update UI
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
 
     const handleTextAction = async (action, text) => {
         if (action === "search") {
@@ -126,10 +131,30 @@ function Sidebar() {
     };
 
     const handleTextActionNote = async (text) => {
-        setTextNote(true);
-        setTextExplain(false);
-        setTextSearch(false);
-        setHomePage(false);
+        try {
+            const response = await fetch(
+                "http://localhost:8000/services/note",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        uid: userData.uid,
+                        classId: activeClassId,
+                        assignmentId: activeAssignmentId,
+                    }),
+                }
+            );
+            setNoteResponse(await response.json());
+            setTextNote(true);
+            setTextExplain(false);
+            setTextSearch(false);
+            setHomePage(false);
+        } catch (error) {
+            console.error("Error:", error);
+        }
     };
 
     const handleTextActionSearch = async (text) => {
@@ -141,7 +166,9 @@ function Sidebar() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ text: text }),
+                    body: JSON.stringify({
+                        text: text,
+                    }),
                 }
             );
             setCurrentPhrase(text);
@@ -237,7 +264,15 @@ function Sidebar() {
                 ""
             )}
 
-            {textNote ? <TextNote /> : ""}
+            {textNote ? (
+                <TextNote
+                    handleNoteClick={handleNoteClick}
+                    text={currentPhrase}
+                    data={noteResponse}
+                />
+            ) : (
+                ""
+            )}
 
             {textExplain ? (
                 <TextExplain
