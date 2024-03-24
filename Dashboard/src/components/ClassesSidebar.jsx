@@ -78,7 +78,7 @@ const ClassesSidebar = ({}) => {
 		axios
 			.post("http://localhost:8000/classes/deleteClass", {
 				uid: userData.uid,
-				className: deletingClass.id,
+				classId: deletingClass.id,
 			})
 			.then(async (response) => {
 				const request = {
@@ -174,7 +174,7 @@ const ClassesSidebar = ({}) => {
 							<button type="button" className="btn" data-dismiss="modal" onClick={() => setShowDeleteClassModal(false)}>
 								Close
 							</button>
-							<button type="button" className="btn" data-dismiss="modal" onClick={() => handleDeleteClass(false)}>
+							<button type="button" className="btn" data-dismiss="modal" onClick={() => handleDeleteClass()}>
 								Confirm
 							</button>
 						</div>

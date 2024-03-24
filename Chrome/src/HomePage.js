@@ -7,6 +7,7 @@ const HomePage = ({
     activeAssignmentId,
     setActiveAssignmentId,
     notesForAssignment,
+    handleGenerateNotes,
 }) => {
     const handleNoteClick = (classId, assignmentId, noteId) => {
         chrome.tabs.create({
@@ -19,7 +20,10 @@ const HomePage = ({
             <h1> Home Page</h1>
             {/* dropdown to select class from */}
             <select
-                onChange={(e) => setActiveClassId(e.target.value)}
+                onChange={(e) => {
+                    setActiveClassId(e.target.value)
+                    setActiveAssignmentId(null)
+                }}
                 className="form-select"
             >
                 <option value="">Select Class</option>
@@ -47,6 +51,12 @@ const HomePage = ({
             )}
             {activeAssignmentId && (
                 <div>
+                    <button
+                        className="btn btn-primary"
+                        onClick={() => handleGenerateNotes()}
+                    >
+                        Generate Notes
+                    </button>
                     <h2>Notes</h2>
                     {notesForAssignment.map((note) => (
                         <div key={note.noteId} className="card">
