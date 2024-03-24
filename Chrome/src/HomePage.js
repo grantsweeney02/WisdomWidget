@@ -33,7 +33,7 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 		text = text.replace(/<img[\s\S]*?\/>/g, "")
 		text = text.replace(/<style[\s\S]*?<\/style>/g, "")
 
-        console.log(text)
+		console.log(text)
 		return text
 	}
 
@@ -46,11 +46,11 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 					console.error(chrome.runtime.lastError.message)
 					return
 				}
-                console.info(response)
+				console.info(response)
 				setUrl(response.url)
 				setSource(response.source)
 				const cleanHTML = removeTagsFromDocument(response.source)
-                console.log(cleanHTML)
+				console.log(cleanHTML)
 				const response2 = await fetch("http://localhost:8000/services/scan", {
 					method: "POST",
 					headers: {
@@ -81,6 +81,31 @@ const HomePage = ({ classes, activeClassId, setActiveClassId, activeAssignmentId
 					}),
 				})
 				console.info(response3)
+
+				const response3JSON = await response3.json()
+				const noteId = response3JSON.noteId
+				const body = {
+					uid: uid,
+					classId: activeClassId,
+					assignmentId: activeAssignmentId,
+					noteId: noteId,
+				}
+				console.log("Body: ", body)
+				const response4 = await fetch("http://localhost:8000/notes/getNote", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						uid: uid,
+						classId: activeClassId,
+						assignmentId: activeAssignmentId,
+						noteId: noteId,
+					}),
+				})
+				const newNote = await response4.json()
+				setNewNoteGenerated(true)
+				setNewNote(newNote)
 			})
 		})
 	}
