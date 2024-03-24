@@ -73,7 +73,7 @@ const NoteDetails = ({}) => {
 	return (
 		<>
 			{noteID && (
-				<div className="col-10 note-details">
+				<div className="col-9 note-details">
 					<h1>
 						{data.assignmentName} - {data.note.name}
 					</h1>
