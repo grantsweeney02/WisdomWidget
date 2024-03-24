@@ -29,18 +29,13 @@ exports.getNote = async (req, res) => {
 };
 
 exports.createNote = async (req, res) => {
-    const { uid, classId, assignmentId } = req.body;
+    const { uid, classId, assignmentId, name, summary, url, keyValuePairs } =
+        req.body;
     const defaultNoteContent = {
-        name: "Getting Started",
-        summary: "Welcome to our app! Here's how to get the most out of it:",
-        keyValuePairs: {
-            "Create Class":
-                "Start by creating a new class for your subjects or projects.",
-            "Add Assignment":
-                "Add assignments to your class and track your progress.",
-            "Take Notes":
-                "Keep detailed notes for each assignment. You can include key terms, summaries, and URLs for reference.",
-        },
+        name: name,
+        url: url,
+        summary: summary,
+        keyValuePairs: keyValuePairs,
     };
 
     try {
