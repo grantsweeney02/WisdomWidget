@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import HomePage from './HomePage';
+import TextNote from './TextNote';
+import TextExplain from './TextExplain';
+import TextSearch from './TextSearch';
 
 
 function Sidebar() {
   const [url, setUrl] = useState("");
   const [source, setSource] = useState("");
+  const [textExplain, setTextExplain] = useState(false);
+  const [textSearch, setTextSearch] = useState(false);
+  const [textNote, setTextNote] = useState(false);
+  const [homePage, setHomePage] = useState(true);
 
   useEffect(() => {
     const messageListener = (message, sender, sendResponse) => {
@@ -66,6 +74,13 @@ function Sidebar() {
   };
 
   const handleTextAction = async (action, text) => {
+    if (action === 'search') {
+      handleTextActionSearch();
+    } else if (action === 'note') {
+      handleTextActionNote();
+    } else if (action === 'explain') {
+      handleTextActionExplain();
+    }
     const dataToSend = {
       action: action,
       text: text,
@@ -85,50 +100,55 @@ function Sidebar() {
 
       const data = await response.json();
       console.log("Success:", data);
-      if (text === 'search') {
-        handleTextActionSearch();
-      } else if (text === 'note') {
-        handleTextActionNote();
-      } else if (text === 'explain') {
-        handleTextActionExplain();
-      }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   const handleTextActionNote = () => {
-
+    setTextNote(true);
+    setTextExplain(false);
+    setTextSearch(false);
+    setHomePage(false);
   }
 
   const handleTextActionSearch = () => {
-
+    setTextNote(false);
+    setTextExplain(false);
+    setTextSearch(true);
+    setHomePage(false);
   }
 
   const handleTextActionExplain = () => {
+    setTextNote(false);
+    setTextExplain(true);
+    setTextSearch(false);
+    setHomePage(false);
+  }
 
+  const handleHomeClick = () => {
+    setTextNote(false);
+    setTextExplain(false);
+    setTextSearch(false);
+    setHomePage(true);
   }
 
   return (
     <div>
       <span>
-        <button>Home</button>
+        <button onClick={handleHomeClick}>Home</button>
         <button>Login</button>
         <button>Dashboard</button>
       </span>
-      <select name="classes" id="classes">
-        <option value="CS4640">CS 4640</option>
-        <option value="CS1001">CS 1001</option>
-        <option value="APMA1223">APMA 1233</option>
-        <option value="APMA2332">APMA 2332</option>
-      </select>
-      <select name="assignments" id="assignments">
-        <option value="Assignment1">Assignment 1</option>
-        <option value="Assignment2">Assignment 2</option>
-        <option value="Assignment3">Assignment 3</option>
-        <option value="Assignment4">Assignment 4</option>
-      </select>
-      <button onClick={handleButtonClick}>Make A Note</button>
+
+      {homePage ? <HomePage/> : ""}
+
+      {textNote ? <TextNote/> : ""}
+
+      {textExplain ? <TextExplain/> : ""}
+
+      {textSearch ? <TextSearch/> : ""}
+
     </div>
   );
 }
