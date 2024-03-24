@@ -49,8 +49,8 @@ const HomePage = ({
                 text: cleanHTML,
             }),
         });
-        setNewNoteGenerated(true);
         const newRequest = await response.json();
+        console.log("First Response: ", newRequest);
         const response2 = await fetch(
             "http://localhost:8000/notes/createNote",
             {
@@ -69,7 +69,32 @@ const HomePage = ({
                 }),
             }
         );
-        setNewNote(await response2.json());
+        // get newly created note
+        const response2JSON = await response2.json();
+        console.log("Second Response: ", response2JSON);
+        const noteId = response2JSON.noteId;
+        const body = {
+            uid: uid,
+            classId: activeClassId,
+            assignmentId: activeAssignmentId,
+            noteId: noteId,
+        };
+        console.log("Body: ", body);
+        const response3 = await fetch(`http://localhost:8000/notes/getNote`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                uid: uid,
+                classId: activeClassId,
+                assignmentId: activeAssignmentId,
+                noteId: noteId,
+            }),
+        });
+        const newNote = await response3.json();
+        setNewNoteGenerated(true);
+        setNewNote(newNote);
     };
 
     return (
