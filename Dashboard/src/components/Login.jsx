@@ -19,7 +19,6 @@ const Login = ({ data, setUserData }) => {
         const localId = response._tokenResponse.localId;
     };
 
-
     useEffect(() => {
         const checkUser = async (user) => {
             if (user) {
@@ -28,26 +27,26 @@ const Login = ({ data, setUserData }) => {
                     email: user.email,
                     displayName: user.displayName,
                 };
-                console.log("Request: ", request);
+                // console.log("Request: ", request);
                 try {
                     const response = await axios.post(
                         "http://localhost:8000/users/retrieveUserData",
                         request
                     );
-                    console.log("Response: ", response);
+                    // console.log("Response: ", response);
                     setUserData(response.data);
                     setLoggedIn(true);
                 } catch (error) {
                     console.error("Error retrieving user data: ", error);
                 }
             } else {
-                console.log("Logged out");
+                // console.log("Logged out");
                 setLoggedIn(false);
             }
         };
-    
+
         const unsubscribe = auth.onAuthStateChanged(checkUser);
-    
+
         return () => unsubscribe();
     }, []);
 
