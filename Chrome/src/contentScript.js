@@ -107,7 +107,7 @@ const actions = [
       });
       button.appendChild(icon);
       button.style.borderRadius = '2px';
-      button.style.background = 'grey';
+      button.style.background = '#1A1A1A';
       button.style.border = 'none';
       button.style.cursor = 'pointer';
       button.style.margin = '1px';
