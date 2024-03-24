@@ -9,6 +9,11 @@ https://firebase.google.com/docs/admin/setup?hl=en&authuser=0&_gl=1*up4wfh*_ga*M
 Chrome
 
 Dashboard
+https://react.dev/reference/react/createContext
+https://mui.com/material-ui/material-icons/
+https://ariangarshi.medium.com/how-to-use-firebase-for-google-authentication-in-a-react-js-in-2022-78171a235404
+https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
 
 
 
