@@ -111,6 +111,75 @@ exports.updateClass = async (req, res) => {
 };
 
 exports.deleteClass = async (req, res) => {
-    
-    // Implementation for deleting a class and its related assignments/notes
+    const { uid, classId } = req.body;
+
+    try {
+        const classRef = db
+            .collection("users")
+            .doc(uid)
+            .collection("classes")
+            .doc(classId);
+
+        // Delete all assignments within the class
+        const assignments = await classRef
+            .collection("assignments")
+            .listDocuments();
+        const deleteAssignmentsPromises = assignments.map((assignment) => {
+            // Optional: Delete notes within each assignment before deleting the assignment
+            // This requires fetching each assignment's notes and deleting them individually
+            return deleteCollection(db, assignment.path, "notes").then(() =>
+                assignment.delete()
+            );
+        });
+        await Promise.all(deleteAssignmentsPromises);
+
+        // Finally, delete the class document itself
+        await classRef.delete();
+
+        res.status(200).send(
+            "Class and its assignments (including notes) have been deleted successfully."
+        );
+    } catch (error) {
+        console.error("Error deleting class:", error);
+        res.status(500).send("Internal Server Error");
+    }
 };
+
+// Helper function to delete all documents in a collection (including subcollections)
+async function deleteCollection(db, collectionPath, subCollection) {
+    const collectionRef = db.collection(collectionPath);
+    const query = collectionRef.limit(500);
+
+    return new Promise((resolve, reject) => {
+        deleteQueryBatch(db, query, resolve, reject, subCollection);
+    });
+}
+
+async function deleteQueryBatch(db, query, resolve, reject, subCollection) {
+    try {
+        const snapshot = await query.get();
+
+        const batch = db.batch();
+        snapshot.docs.forEach((doc) => {
+            if (subCollection) {
+                // If there's a subcollection to delete, call deleteCollection on each document
+                deleteCollection(db, doc.ref.path, null);
+            } else {
+                batch.delete(doc.ref);
+            }
+        });
+
+        await batch.commit();
+
+        if (snapshot.size === 0) {
+            resolve();
+            return;
+        }
+
+        process.nextTick(() => {
+            deleteQueryBatch(db, query, resolve, reject, subCollection);
+        });
+    } catch (error) {
+        reject(error);
+    }
+}
