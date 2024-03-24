@@ -16,8 +16,6 @@ const AssignmentDetails = ({}) => {
 
 	// fetch assignment info
 	const response = dummyUser
-	const assignment = response.classes[0].assignments[assignmentID - 1]
-    const { assignmentID } = useParams();
     const [assignment, setAssignment] = useState(null);
     const userData = useContext(UserContext);
 
