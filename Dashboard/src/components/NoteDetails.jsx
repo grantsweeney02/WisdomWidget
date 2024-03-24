@@ -30,7 +30,7 @@ const NoteDetails = ({}) => {
                     assignmentId: assignmentID,
 					noteId: noteID
                 };
-                // const response = await axios.get("http://localhost:8000/assignments/getAssignment", body);
+                // const response = await axios.post("http://localhost:8000/notes/getNote", body);
                 // console.log("Note Response: ", response.data);
                 // setData(response.data);
             };

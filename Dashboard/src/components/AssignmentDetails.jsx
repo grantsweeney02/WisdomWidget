@@ -30,7 +30,10 @@ const AssignmentDetails = ({}) => {
                     assignmentId: assignmentID,
                 };
                 console.log("Body: ", body);
-                const response = await axios.post("http://localhost:8000/assignments/getAssignment", body);
+                const response = await axios.post(
+                    "http://localhost:8000/assignments/getAssignment",
+                    body
+                );
                 console.log("Assignment Response: ", response.data);
                 setAssignment(response.data);
             };
@@ -78,7 +81,7 @@ const AssignmentDetails = ({}) => {
                     </div>
                     <Citations urls={getAllNoteUrls(assignment.notes)} />
                     <h4>More Resources: </h4>
-                    {assignment.urlRecs.map((url, index) => (
+                    {assignment.recUrls.map((url, index) => (
                         <URLRec key={index} url={url} />
                     ))}
                 </div>
