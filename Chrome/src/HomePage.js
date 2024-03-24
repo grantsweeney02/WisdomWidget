@@ -1,4 +1,5 @@
 import React from "react";
+import "./styles/bootstrap.min.css";
 
 const HomePage = ({
     classes,

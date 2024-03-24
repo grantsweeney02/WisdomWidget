@@ -5,6 +5,7 @@ import TextExplain from "./TextExplain";
 import TextSearch from "./TextSearch";
 import "./styles/styles.css";
 import dummyData from "./dummyData";
+import "./styles/bootstrap.min.css";
 
 function Sidebar() {
     const [url, setUrl] = useState("");
