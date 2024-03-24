@@ -136,10 +136,10 @@ const ClassesSidebar = ({}) => {
 							onChange={(e) => setNewClassName(e.target.value)}
 						/>
 						<div className="add-class-confirms">
-							<button type="button" className="btn" onClick={() => handleConfirmAddClass()}>
+							<button type="button" className="btn success-btn" onClick={() => handleConfirmAddClass()}>
 								<CheckIcon />
 							</button>
-							<button type="button" className="btn" onClick={() => handleCancelAddClass()}>
+							<button type="button" className="btn danger-btn" onClick={() => handleCancelAddClass()}>
 								<CloseIcon />
 							</button>
 						</div>

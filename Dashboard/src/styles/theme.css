@@ -5,6 +5,8 @@
     --text-secondary: #A8A8A8; 
     --accent-primary: #A020F0; 
     --accent-secondary: #8A2BE2;
+    --success: green;
+    --danger: red;
 }
 
 body {
