@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import cheerio from "cheerio";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -19,6 +19,7 @@ const HomePage = ({
     const [newNote, setNewNote] = useState({});
     const [url, setUrl] = useState("");
     const [source, setSource] = useState("");
+
 
     const handleNoteClick = (classId, assignmentId, noteId) => {
         chrome.tabs.create({
@@ -199,16 +200,16 @@ const HomePage = ({
                     {newNoteGenerated && newNote && (
                         <div>
                             <h2 className="generated-note">Generated Note</h2>
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">
+                            <div className="note-card">
+                                <div className="note-card-body">
+                                    <h5 className="note-card-title">
                                         {newNote.name}
                                     </h5>
-                                    <p className="card-text">
+                                    <p className="note-card-text">
                                         {newNote.summary}
                                     </p>
                                     <button
-                                        className="btn btn-primary"
+                                        className="view-dashboard-button"
                                         onClick={() =>
                                             handleNoteClick(
                                                 activeClassId,

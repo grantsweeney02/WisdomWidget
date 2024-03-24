@@ -113,6 +113,10 @@ fieldset:disabled .form-select {
 	padding: 0.5rem 1rem;
 }
 
+.view-dashboard-button:hover {
+    background-color: var(--bg-secondary);
+}
+
 .notes {
 	margin-top: 3rem;
 }

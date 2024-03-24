@@ -108,6 +108,7 @@ function Sidebar() {
                 );
                 const data = await response.json();
                 console.log("All user Info:", data);
+                setUserInfo(data);
             };
             getAllUserInfo();
         }
