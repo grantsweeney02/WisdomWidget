@@ -62,6 +62,7 @@ function handleSidebarVisibility(shouldBeVisible) {
         const isOpen = iframe.style.width === '450px';
         chrome.storage.local.set({ sidebarVisible: !isOpen });
         iframe.style.width = isOpen ? '30px' : '450px';
+        iframe.style.overflow = 'hidden';
         icon.className = isOpen ? `fa-solid fa-circle-chevron-left fa-3x` : `fa-solid fa-circle-chevron-right fa-3x`;
         toggleButton.style.right = isOpen ? '0px' : '420px';
       });
