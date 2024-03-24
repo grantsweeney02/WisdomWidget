@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
+import axios from "axios"
 import dummyUser from "../../dummyUser.json"
 import { auth } from "../../firebaseConfig"
 import LogoutIcon from "@mui/icons-material/Logout"
@@ -18,6 +19,7 @@ const ClassesSidebar = ({}) => {
 	const [newClassName, setNewClassName] = useState("")
 
 	const userData = useContext(UserContext).userData
+	const setUserData = useContext(UserContext).setUserData
 
 	useEffect(() => {
 		if (userData) {
@@ -45,16 +47,44 @@ const ClassesSidebar = ({}) => {
 	}
 
 	const handleConfirmAddClass = () => {
-		axios.post()
+		axios
+			.post("http://localhost:8000/classes/createClass", {
+				uid: userData.uid,
+				className: newClassName,
+			})
+			.then(async (response) => {
+				const request = {
+					uid: userData.uid,
+					email: userData.email,
+					displayName: userData.displayName,
+				}
+				try {
+					const response = await axios.post("http://localhost:8000/users/retrieveUserData", request)
+					setUserData(response.data)
+				} catch (error) {
+					console.error("Error retrieving user data: ", error)
+				}
+			})
+			.catch((error) => {
+				console.error("Error adding assignment:", error)
+			})
 		setIsAddingClass(false)
 		setNewClassName("")
 	}
 
-	const ClassAccordionItems = classes ? (classes.map((classData) => {
-		return (
-			<ClassAccordion key={classData.id} classData={classData} activeAssignment={activeAssignment} handleAssignmentChange={handleAssignmentChange} />
-		)
-	})) : (
+	const ClassAccordionItems = classes ? (
+		classes.map((classData) => {
+			return (
+				<ClassAccordion
+					key={classData.id}
+					setClasses
+					classData={classData}
+					activeAssignment={activeAssignment}
+					handleAssignmentChange={handleAssignmentChange}
+				/>
+			)
+		})
+	) : (
 		<p>Loading...</p>
 	)
 

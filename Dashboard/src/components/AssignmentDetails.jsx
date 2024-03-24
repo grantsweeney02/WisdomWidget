@@ -29,12 +29,10 @@ const AssignmentDetails = ({}) => {
                     classId: classID,
                     assignmentId: assignmentID,
                 };
-                console.log("Body: ", body);
                 const response = await axios.post(
                     "http://localhost:8000/assignments/getAssignment",
                     body
                 );
-                console.log("Assignment Response: ", response.data);
                 setAssignment(response.data);
             };
             populateAssignment();
@@ -48,16 +46,6 @@ const AssignmentDetails = ({}) => {
         });
         return urls;
     };
-
-    useEffect(() => {
-        if (assignment) {
-            console.log("Assignment Notes: ", assignment.notes);
-        }
-    }, [assignment]);
-
-    // useEffect(() => {
-    //     console.log("User Data From Context: ", userData);
-    // }, [userData]);
 
     console.info(assignment);
     return (

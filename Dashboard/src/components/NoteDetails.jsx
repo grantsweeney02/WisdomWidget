@@ -65,8 +65,6 @@ const NoteDetails = ({}) => {
 
 	useEffect(() => {
 		if (data) {
-			console.log("Data", data)
-			console.log("Pairs", data.keyValuePairs)
 			Keywords = Object.entries(data.keyValuePairs).map(([keyword, definition]) => (
 				<div key={keyword} className="keyword-container">
 					<div className="keyword-card">

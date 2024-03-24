@@ -27,20 +27,17 @@ const Login = ({ data, setUserData }) => {
                     email: user.email,
                     displayName: user.displayName,
                 };
-                // console.log("Request: ", request);
                 try {
                     const response = await axios.post(
                         "http://localhost:8000/users/retrieveUserData",
                         request
                     );
-                    // console.log("Response: ", response);
                     setUserData(response.data);
                     setLoggedIn(true);
                 } catch (error) {
                     console.error("Error retrieving user data: ", error);
                 }
             } else {
-                // console.log("Logged out");
                 setLoggedIn(false);
             }
         };

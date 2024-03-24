@@ -5,11 +5,16 @@ import CloseIcon from "@mui/icons-material/Close"
 import CheckIcon from "@mui/icons-material/Check"
 import "../styles/ClassAccordion.css"
 import { UserContext } from "../App"
+import { useNavigate } from "react-router-dom"
 
 const ClassAccordion = ({ classData, activeAssignment, handleAssignmentChange }) => {
 	const [isAddingAssignment, setIsAddingAssignment] = useState(false)
 	const [newAssignmentName, setNewAssignmentName] = useState("")
 	const userData = useContext(UserContext).userData
+	const setUserData = useContext(UserContext).setUserData
+	const navigate = useNavigate()
+
+	console.info(userData)
 
 	const handleAddAssignment = () => {
 		setIsAddingAssignment(true)
@@ -27,8 +32,18 @@ const ClassAccordion = ({ classData, activeAssignment, handleAssignmentChange })
 				classId: classData.id,
 				name: newAssignmentName,
 			})
-			.then((response) => {
-				console.log(response.data)
+			.then(async (response) => {
+				const request = {
+					uid: userData.uid,
+					email: userData.email,
+					displayName: userData.displayName,
+				}
+				try {
+					const response = await axios.post("http://localhost:8000/users/retrieveUserData", request)
+					setUserData(response.data)
+				} catch (error) {
+					console.error("Error retrieving user data: ", error)
+				}
 			})
 			.catch((error) => {
 				console.error("Error adding assignment:", error)
