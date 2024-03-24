@@ -21,17 +21,19 @@ function Sidebar() {
     const [currentPhrase, setCurrentPhrase] = useState("");
 
     const userData = dummyData;
-
-    useEffect(() => {
-        const messageListener = (message, sender, sendResponse) => {
-            if (message.type === "textAction") {
-                console.log(`Action: ${message.action}, Text: ${message.text}`);
-                // Here, you can handle the action, such as updating state or calling an API
-                handleTextAction(message.action, message.text);
-                sendResponse({ status: "Action received" });
-            }
-        };
-
+  useEffect(() => {
+    const messageListener = (message, sender, sendResponse) => {
+      if (message.type === "textAction") {
+        console.log(`Action: ${message.action}, Text: ${message.text}`);
+        // Here, you can handle the action, such as updating state or calling an API
+        handleTextAction(message.action, message.text);
+        sendResponse({ status: "Action received" });
+      }
+      if (message.type === "getUser") {
+        console.log(uid);
+        handleGetUser(message.uid, message.displayName, message.email);
+        sendResponse({ status: "Action reveived" });
+      }
         // Add the message listener
         chrome.runtime.onMessage.addListener(messageListener);
 
@@ -39,7 +41,7 @@ function Sidebar() {
         return () => {
             chrome.runtime.onMessage.removeListener(messageListener);
         };
-    }, []); // Empty dependency array means this effect runs once on mount
+    }}, []); // Empty dependency array means this effect runs once on mount
 
     const handleButtonClick = () => {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -84,7 +86,34 @@ function Sidebar() {
         } catch (error) {
             console.error("Error:", error);
         }
+      };
+  const handleGetUser = async (uid, displayName, email) => {
+    const dataToSend = {
+      uid: uid,
+      displayName: displayName,
+      email: email,
     };
+
+    try {
+      const response = await fetch("http://localhost:8000/users/retrieveUserData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Success:", data);
+      // Handle success - update UI
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
     const handleTextAction = async (action, text) => {
         if (action === "search") {

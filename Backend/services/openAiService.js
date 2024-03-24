@@ -1,27 +1,50 @@
-const { Configuration, OpenAIApi } = require("openai");
+const OpenAI = require("openai");
 
-const openAiApiKey = process.env.OPENAI_API_KEY;
-const configuration = new Configuration({
-    apiKey: openAiApiKey,
-});
-const openai = new OpenAIApi(configuration);
+function parseResources(string) {
+    const lines = string.split("\n");
+    const stockMarketData = [];
+    let currentObject = {};
 
-async function searchWebResources(query) {
-    const prompt = `List 5 trustworthy web URLs that can be resources related to the following block of code or text: ${query}
-    The response should simply be 5 links`;
-
-    try {
-        const response = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: prompt,
-            max_tokens: 100,
-            temperature: 0.5,
-        });
-        return response.data.choices[0].text.trim();
-    } catch (error) {
-        console.error("Error in calling OpenAI API:", error);
-        throw error;
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (/^\d+\.\s+Title:/.test(line)) {
+            if (currentObject.title && currentObject.url) {
+                stockMarketData.push(currentObject);
+                currentObject = {};
+            }
+            currentObject.title = line.replace(/^\d+\.\s+Title:\s*/, "").trim();
+        } else if (/^\s*URL:/.test(line)) {
+            currentObject.url = line.replace("URL:", "").trim();
+        }
     }
+    // Push the last object if it exists
+    if (currentObject.title && currentObject.url) {
+        stockMarketData.push(currentObject);
+    }
+
+    return stockMarketData;
 }
 
-module.exports = { searchWebResources };
+async function fetchResources(query) {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
+
+    const completion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+            {
+                role: "system",
+                content: `List 5 trustworthy web resources related to the following text: "${query}". For each resource, provide a title and its corresponding URL`,
+            },
+            {
+                role: "user",
+                content: query,
+            },
+        ],
+    });
+    let message = completion.choices[0].message.content;
+    console.log(message);
+    const urls = parseResources(message);
+    return urls;
+}
+
+module.exports = { fetchResources };
