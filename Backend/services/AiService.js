@@ -60,12 +60,12 @@ async function fetchExplanation(query) {
 
                 Output the data in a JSON file with the following format:
                 {
-                    name: "",
-                    explanation: "",
-                    summary: "",
-                    keyValuePairs: [
-                      Key Word: ""
-                    ]
+                    name: "Example_Name",
+                    explanation: "Example_Explanation",
+                    summary: "Example_Summary",
+                    keyValuePairs: {
+                      Example: "Example_Explanation"
+                    }
                 }
                 `,
             },
@@ -77,6 +77,7 @@ async function fetchExplanation(query) {
     });
 
     const response = completion.choices[0].message.content;
+    console.log(response);
     return await JSON.parse(response);
 }
 
@@ -87,10 +88,9 @@ async function fetchScan(query) {
         messages: [
             {
                 role: "system",
-                content: `Given the following text, summarize it for me and give me a title. Additionally, create a list of key terms within the text along with their definitions.
+                content: `Given the following text ${query}, summarize it for me and give me a title. Additionally, create a list of key terms within the text along with their definitions.
                 The title(name) should be around 5 words. The summary has around 20 words. The key term definitions should be around 20-40 words.
-                Output the data in a JSON file with the following format:
-                
+                Output the data in a JSON file with the following format you must include the brackets:
                 {
                   name: "",
                   summary: "",
@@ -99,7 +99,8 @@ async function fetchScan(query) {
                     "keyTerm": "",
                     ....
                   ]
-                }`,
+                }
+                `,
             },
             {
                 role: "user",
