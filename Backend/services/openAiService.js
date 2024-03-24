@@ -1,24 +1,28 @@
 const OpenAI = require("openai");
 
-function parseResponseToTitledUrls(responseText) {
-    // Split the response by newline to separate each resource listing
-    const lines = responseText.split("\n");
+function parseResources(string) {
+    const lines = string.split("\n");
+    const stockMarketData = [];
+    let currentObject = {};
 
-    // Extract and structure titles and URLs from each line
-    const titledUrls = lines
-        .map((line) => {
-            // Attempt to split the line at the first occurrence of ": "
-            const splitIndex = line.indexOf(": ");
-            if (splitIndex !== -1) {
-                const title = line.substring(0, splitIndex).trim();
-                const url = line.substring(splitIndex + 2).trim(); // Start after ": "
-                return { title, url };
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (/^\d+\.\s+Title:/.test(line)) {
+            if (currentObject.title && currentObject.url) {
+                stockMarketData.push(currentObject);
+                currentObject = {};
             }
-            return null;
-        })
-        .filter((resource) => resource !== null); // Remove any lines that couldn't be parsed
+            currentObject.title = line.replace(/^\d+\.\s+Title:\s*/, "").trim();
+        } else if (/^\s*URL:/.test(line)) {
+            currentObject.url = line.replace("URL:", "").trim();
+        }
+    }
+    // Push the last object if it exists
+    if (currentObject.title && currentObject.url) {
+        stockMarketData.push(currentObject);
+    }
 
-    return titledUrls;
+    return stockMarketData;
 }
 
 async function fetchResources(query) {
@@ -38,7 +42,8 @@ async function fetchResources(query) {
         ],
     });
     let message = completion.choices[0].message.content;
-    const urls = parseResponseToTitledUrls(message);
+    console.log(message);
+    const urls = parseResources(message);
     return urls;
 }
 
