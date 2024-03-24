@@ -1,5 +1,4 @@
 const Citations = ({ urls }) => {
-    console.log(urls)
 	return (
 		<>
 			{urls && urls.length > 0 && (

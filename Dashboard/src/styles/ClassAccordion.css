@@ -1,0 +1,31 @@
+.add-assignment-button {
+	width: 100%;
+	background-color: var(--bg-primary);
+	color: var(--text-secondary);
+	text-align: left;
+	margin-top: 1rem;
+}
+
+.add-assignment-button:hover {
+	color: var(--text-secondary);
+	background-color: var(--accent-secondary);
+}
+
+.add-assignment-input {
+	margin-top: 1rem;
+}
+
+.add-assignment-confirms {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.add-assignment-confirms button {
+	border-radius: 1rem;
+	color: var(--text-primary);
+}
+
+.add-assignment-confirms button:hover {
+	background-color: var(--accent-primary);
+	color: var(--text-primary);
+}
