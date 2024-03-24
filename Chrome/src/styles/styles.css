@@ -114,7 +114,7 @@ fieldset:disabled .form-select {
 }
 
 .view-dashboard-button:hover {
-    background-color: var(--bg-secondary);
+	background-color: var(--bg-primary);
 }
 
 .notes {
