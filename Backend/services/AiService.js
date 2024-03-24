@@ -52,17 +52,19 @@ async function fetchExplanation(query) {
         messages: [
             {
                 role: "system",
-                content: `Given the following text, summarize it for me and give me a title. Additionally, create a list of key terms within the text along with their definitions.
-                The title(name) should be around 5 words. The summary has around 20 words. The key term definitions should be around 20-40 words.
-                keyValuePairs will only contains one entry which is the key word mapped to the explanation.
-                keyValuePairs will can only have one extry.
+                content: `Given the following text, generate a name (which represents a title of the text and is 0-5 words long),
+                generate a summary (which represents a brief overview of the text and is 10-20 words long), generate an explanation (which explans the text and is 20-40 words long), finally generate a key word for this text (2-4 words long).
+                Then output to the format of the JSON below. The keyValuePair map will have one entry and it will be the Key Word mapped to the explanation.
+                
+                If the text is not in english or code, first translate it to english.
+
                 Output the data in a JSON file with the following format:
                 {
                     name: "",
                     explanation: "",
                     summary: "",
                     keyValuePairs: [
-                      Key Word: "",  // this can be name : explanation
+                      Key Word: ""
                     ]
                 }
                 `,
@@ -73,8 +75,9 @@ async function fetchExplanation(query) {
             },
         ],
     });
+
     const response = completion.choices[0].message.content;
-    return JSON.parse(response);
+    return await JSON.parse(response);
 }
 
 async function fetchScan(query) {

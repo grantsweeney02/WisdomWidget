@@ -6,9 +6,7 @@ https://medium.com/@savinihemachandra/creating-rest-api-using-express-on-cloud-f
 https://firebase.google.com/docs/admin/setup?hl=en&authuser=0&_gl=1*up4wfh*_ga*MTE5MTIxMTU1OS4xNzAzODA1NjQw*_ga_CW55HF8NVT*MTcxMTIyMzU1MS4xNC4xLjE3MTEyMjUwNDEuMjkuMC4w
 https://txtfiddle.com/support/docs
 https://platform.openai.com/docs/guides/text-generation/chat-completions-api
-
-
-Chrome
+https://help.quizlet.com/hc/en-us/articles/360029977151-Creating-sets-by-importing-content
 
 Dashboard
 https://react.dev/reference/react/createContext
