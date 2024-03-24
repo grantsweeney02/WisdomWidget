@@ -82,7 +82,7 @@ const ClassesSidebar = ({}) => {
 	})
 
 	return (
-		<nav className="classes-sidebar col-2">
+		<nav className="classes-sidebar col-3">
 			<h2>Classes</h2>
 			<div className="accordion" id="classesAccordion">
 				{ClassAccordionItems}
