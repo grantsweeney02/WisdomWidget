@@ -129,3 +129,29 @@
 	background-color: var(--accent-primary);
 	color: var(--text-primary);
 }
+
+.modal-content {
+	background-color: var(--bg-secondary);
+	color: var(--text-primary);
+}
+
+.modal-header {
+	border: none;
+}
+
+.modal-body {
+	border: none;
+}
+
+.modal-footer {
+	border: none;
+}
+
+.modal-footer button {
+	color: var(--text-primary);
+}
+
+.modal-footer button:hover {
+	color: var(--text-primary);
+	background-color: var(--accent-primary);
+}
