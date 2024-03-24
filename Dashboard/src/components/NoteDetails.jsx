@@ -1,16 +1,42 @@
 import { useNavigate, useParams } from "react-router-dom"
+import { useState } from "react"
 import "../styles/NoteDetails.css"
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
+import AddIcon from "@mui/icons-material/Add"
+import CheckIcon from "@mui/icons-material/Check"
+import CloseIcon from "@mui/icons-material/Close"
 
 const NoteDetails = ({}) => {
-	const { noteID } = useParams()
+	const { classIDassignmentID, noteID } = useParams()
+	const classID = classIDassignmentID.split("-")[0]
+	const assignmentID = classIDassignmentID.split("-")[1]
 	const navigate = useNavigate()
-
-	// get note info from db
-	const data = demoResponse // from fetch
+	const [newKeyword, setNewKeyword] = useState("")
+	const [newDefinition, setNewDefinition] = useState("")
+	const [addingKeyword, setAddingKeyword] = useState(false)
+	const [data, setData] = useState(demoResponse) // Initial data from demoResponse
 
 	const handleBack = () => {
 		navigate(-1)
+	}
+
+	const handleAddKeyword = () => {
+		setAddingKeyword(true)
+	}
+
+	const handleConfirmAddKeyword = () => {
+		const newData = { ...data }
+		newData.note.keywords[newKeyword] = newDefinition
+		setData(newData)
+		setNewKeyword("")
+		setNewDefinition("")
+		setAddingKeyword(false)
+	}
+
+	const handleCancelAddKeyword = () => {
+		setNewKeyword("")
+		setNewDefinition("")
+		setAddingKeyword(false)
 	}
 
 	const Keywords = Object.entries(data.note.keywords).map(([keyword, definition]) => (
@@ -33,7 +59,42 @@ const NoteDetails = ({}) => {
 						<ArrowBackIosNewIcon />
 					</button>
 					<p>{data.note.summary}</p>
-					<div className="keywords">{Keywords}</div>
+					<div className="keywords">
+						{Keywords}
+						{addingKeyword ? (
+							<div className="keyword-add-container">
+								<input
+									className="form-control keyword-input"
+									type="text"
+									placeholder="New Keyword"
+									value={newKeyword}
+									onChange={(e) => setNewKeyword(e.target.value)}
+								/>
+								<input
+									className="form-control definition-input"
+									type="text"
+									placeholder="Definition"
+									value={newDefinition}
+									onChange={(e) => setNewDefinition(e.target.value)}
+								/>
+								<div className="keyword-confirm-buttons">
+									<button className="btn" onClick={handleConfirmAddKeyword}>
+										<CheckIcon />
+									</button>
+									<button className="btn" onClick={handleCancelAddKeyword}>
+										<CloseIcon />
+									</button>
+								</div>
+							</div>
+						) : (
+							<button className="keyword-add-container" onClick={() => handleAddKeyword()}>
+								<button className="btn keyword-add-button">
+									<AddIcon />
+									Add Keyword
+								</button>
+							</button>
+						)}
+					</div>
 					{data.note.url && (
 						<h4>
 							Source: <a href={data.note.url}>{data.note.url}</a>

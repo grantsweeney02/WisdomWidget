@@ -3,7 +3,7 @@ import dummyUser from "../../dummyUser.json"
 import { auth } from "../../firebaseConfig"
 import LogoutIcon from "@mui/icons-material/Logout"
 import AddIcon from "@mui/icons-material/Add"
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close"
 import CheckIcon from "@mui/icons-material/Check"
 import "../styles/ClassesSidebar.css"
 import { useState } from "react"
@@ -18,9 +18,9 @@ const ClassesSidebar = ({}) => {
 	const response = dummyUser
 	const classes = response.classes
 
-	const handleAssignmentChange = (assignment) => {
+	const handleAssignmentChange = (classID, assignment) => {
 		setActiveAssignment(assignment)
-		navigate(`/${assignment.id}`)
+		navigate(`/${classID}-${assignment.id}`)
 	}
 
 	const handleLogout = async () => {
@@ -49,7 +49,7 @@ const ClassesSidebar = ({}) => {
 					key={"" + assignmentData.id}
 					type="button"
 					className={"btn btn-primary assignment-button" + (activeAssignment.id == assignmentData.id ? " active" : "")}
-					onClick={() => handleAssignmentChange(assignmentData)}
+					onClick={() => handleAssignmentChange(classData.id, assignmentData)}
 				>
 					{assignmentData.name}
 				</button>
