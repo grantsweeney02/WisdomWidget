@@ -4,10 +4,14 @@ import URLRec from "./URLRec"
 import dummyUser from "../../dummyUser.json"
 import { useParams } from "react-router-dom"
 import AddIcon from "@mui/icons-material/Add"
-import "../styles/AssignmentDetails.css"
+import { useContext, useEffect } from "react";
+import { UserContext } from "../App";
+
+import "../styles/AssignmentDetails.css";
 
 const AssignmentDetails = ({}) => {
-	const { assignmentID } = useParams()
+    const { assignmentID } = useParams();
+    const userData = useContext(UserContext);
 
 	// fetch assignment info
 	const response = dummyUser
@@ -21,6 +25,10 @@ const AssignmentDetails = ({}) => {
 		return urls
 	}
 
+    useEffect(() => {
+        console.log("User Data From Context: ", userData);
+    }, [userData]);
+
 	return (
 		<>
 			{assignment && (
@@ -30,7 +38,11 @@ const AssignmentDetails = ({}) => {
 					<h4 className="notes">Notes: </h4>
 					<div className="note-card-container">
 						{assignment.notes.map((note, index) => (
-							<NoteCard key={index} assignmentID={assignmentID} note={note} />
+							<NoteCard
+                                key={index}
+                                assignmentID={assignmentID}
+                                note={note}
+                            />
 						))}
 						<div className="card note-add-card">
 							<div className="card-body note-add-body">
