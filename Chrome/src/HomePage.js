@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import cheerio from "cheerio";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import "./styles/bootstrap.min.css";
 
 const HomePage = ({
     classes,
@@ -82,11 +84,12 @@ const HomePage = ({
                 className="form-select"
             >
                 <option value="">Select Class</option>
-                {classes && classes.map((classObj) => (
-                    <option key={classObj.id} value={classObj.id}>
-                        {classObj.name}
-                    </option>
-                ))}
+                {classes &&
+                    classes.map((classObj) => (
+                        <option key={classObj.id} value={classObj.id}>
+                            {classObj.name}
+                        </option>
+                    ))}
             </select>
             {/* dropdown to select assignment from only once a class is selected*/}
             {activeClassId && (
@@ -107,7 +110,7 @@ const HomePage = ({
             {activeAssignmentId && (
                 <div>
                     <button
-                        className="btn btn-primary"
+                        className="generate-notes-button"
                         onClick={() => handleGenerateNotes()}
                     >
                         Generate Notes
@@ -140,24 +143,26 @@ const HomePage = ({
                         </div>
                     )}
                     <h2>Notes</h2>
-                    {console.log("Notes for assignment", notesForAssignment)}
                     {notesForAssignment.map((note) => (
-                        <div key={note.noteId} className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">{note.name}</h5>
-                                <p className="card-text">{note.summary}</p>
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() =>
-                                        handleNoteClick(
-                                            activeClassId,
-                                            activeAssignmentId,
-                                            note.id
-                                        )
-                                    }
-                                >
-                                    View in Dashboard
-                                </button>
+                        <div key={note.noteId} className="note-card">
+                            <div className="note-card-body">
+                                <h5 className="note-card-title">{note.name}</h5>
+                                <p className="note-card-text">{note.summary}</p>
+                                <div className="note-card-footer">
+                                    <button
+                                        className="view-dashboard-button"
+                                        onClick={() =>
+                                            handleNoteClick(
+                                                activeClassId,
+                                                activeAssignmentId,
+                                                note.id
+                                            )
+                                        }
+                                    >
+                                        View in Dashboard
+                                        <OpenInNewIcon fontSize="small" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}

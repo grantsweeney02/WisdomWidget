@@ -5,6 +5,8 @@ import TextExplain from "./TextExplain";
 import TextSearch from "./TextSearch";
 import "./styles/styles.css";
 import dummyData from "./dummyData";
+import "./styles/bootstrap.min.css";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function Sidebar() {
     const [url, setUrl] = useState("");
@@ -301,16 +303,17 @@ function Sidebar() {
 
     return (
         <div>
-            <span>
-                <button className="btn btn-primary" onClick={handleHomeClick}>
+            <span className="nav-buttons">
+                <button className="nav-button" onClick={handleHomeClick}>
                     Home
                 </button>
-                <button className="btn btn-primary">Login</button>
+                <button className="nav-button">Login</button>
                 <button
-                    className="btn btn-primary"
+                    className="nav-button"
                     onClick={handleDashboardClick}
                 >
                     Dashboard
+                    <OpenInNewIcon fontSize="small" />
                 </button>
             </span>
 
