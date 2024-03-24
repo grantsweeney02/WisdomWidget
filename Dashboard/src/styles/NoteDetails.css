@@ -52,6 +52,10 @@
 	border-radius: 1rem;
 }
 
+.keyword-add-container:hover {
+	background-color: var(--bg-secondary);
+}
+
 .keyword-add-card {
 	display: flex;
 	flex-direction: row;
@@ -68,7 +72,6 @@
 .keyword-add-inputs {
 	display: flex;
 }
-
 
 .form-control.keyword-input,
 .form-control.keyword-input:active,
