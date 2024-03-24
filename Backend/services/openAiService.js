@@ -75,7 +75,7 @@ async function fetchExplanation(query) {
         messages: [
             {
                 role: "system",
-                content: `Given the following text: "${query}"\n\nPlease respond with 4 parts. 1. Write a detailed explanation.\n2. Provide a suitable title.\n3. Summarize the text.\n4. Create a "Key Word"\nThe title should be a few words the summary should be about 20 words and the explanation can be 40 words. The key Word should be 2-3 words. I need "Title", "Summary", "Explanation", and "Key Word"`,
+                content: `Given the following text:\n\nPlease respond with 4 parts. 1. Write a detailed explanation.\n2. Provide a suitable title.\n3. Summarize the text.\n4. Create a "Key Word"\nThe title should be a few words the summary should be about 20 words and the explanation can be 40 words. The key Word should be 2-3 words. I need "Title", "Summary", "Explanation", and "Key Word"`,
             },
             {
                 role: "user",
@@ -88,4 +88,43 @@ async function fetchExplanation(query) {
     return parseExplanation(response);
 }
 
-module.exports = { fetchResources, fetchExplanation };
+async function fetchScan(query) {
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
+    const completion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+            {
+                role: "system",
+                content: `Given the following text, summarize it for me and give me a title. Additionally, create a list of key terms within the text along with their definitions.
+                The title(name) should be around 5 words. The summary has around 20 words. The key term definitions should be around 20-40 words.
+                Output the data in a JSON file with the following format:
+                
+                {
+                  name: "",
+                  summary: "",
+                  keyValuePairs: [
+                    "keyTerm": "",
+                    "keyTerm": "",
+                    ....
+                  ]
+                }`,
+            },
+            {
+                role: "user",
+                content: query,
+            },
+        ],
+    });
+
+    
+    const response = completion.choices[0].message.content;
+    const startIdx = response.indexOf("{")
+    const endIdx = response.lastIndexOf("}")
+    response2 = response.slice(startIdx, endIdx + 1)
+    messageJSON = await JSON.parse(response2)
+    messageJSON
+    console.log(messageJSON);
+    return messageJSON;
+}
+
+module.exports = { fetchResources, fetchExplanation, fetchScan };
