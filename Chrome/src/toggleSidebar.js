@@ -1,8 +1,8 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "toggleSidebar") {
-    handleSidebarVisibility(message.visible);
-  }
-});
+	if (message.action === "toggleSidebar") {
+		handleSidebarVisibility(message.visible)
+	}
+})
 
 function handleSidebarVisibility(shouldBeVisible) {
   let iframe = document.getElementById('my-extension-sidebar');
@@ -68,14 +68,13 @@ function handleSidebarVisibility(shouldBeVisible) {
       });
     }
 
-    // Set initial visibility based on the shouldBeVisible flag
-    iframe.style.width = shouldBeVisible ? '450px' : '30px';
-    toggleButton.style.right = shouldBeVisible ? '420px' : '10px';
-  } else {
-    if (iframe) {
-      iframe.remove();
-      toggleButton.remove();
-    }
-  }
+		// Set initial visibility based on the shouldBeVisible flag
+		iframe.style.width = shouldBeVisible ? "450px" : "30px"
+		toggleButton.style.right = shouldBeVisible ? "420px" : "10px"
+	} else {
+		if (iframe) {
+			iframe.remove()
+			toggleButton.remove()
+		}
+	}
 }
-

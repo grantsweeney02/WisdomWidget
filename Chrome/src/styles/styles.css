@@ -3,6 +3,7 @@ body {
 }
 
 .notes-root {
+    margin-left: 30px;
 	padding: 2rem;
 }
 
@@ -10,6 +11,7 @@ body {
 	display: flex;
 	justify-content: center;
 	gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 .nav-button {
