@@ -6,7 +6,7 @@ import TextSearch from "./TextSearch";
 import "./styles/styles.css";
 import dummyData from "./dummyData";
 import "./styles/bootstrap.min.css";
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 function Sidebar() {
     const [textExplain, setTextExplain] = useState(false);
@@ -40,6 +40,12 @@ function Sidebar() {
     //     };
     //     call();
     // }, []);
+
+    useEffect(() => {
+      console.log("Active Class ID: ", activeClassId);
+      console.log("Active Assignment ID: ", activeAssignmentId);
+      console.log("User ID: ", userInfo.uid);
+    }, [userInfo, activeClassId, activeAssignmentId]);
 
     useEffect(() => {
         chrome.storage.sync.get(["userData"], function (result) {
@@ -176,8 +182,9 @@ function Sidebar() {
     };
 
     const handleTextActionNote = async (text) => {
+        console.log("Text: ", text);
         try {
-            const response = await fetch(
+            const response1 = await fetch(
                 "http://localhost:8000/services/explain",
                 {
                     method: "POST",
@@ -189,7 +196,40 @@ function Sidebar() {
                     }),
                 }
             );
-            setNoteResponse(await response.json());
+            const responseJSON = await response1.json();
+            console.log("Response: ", responseJSON);
+            const body = {
+                name: responseJSON.name,
+                summary: responseJSON.summary,
+                keyValuePairs: responseJSON.keyValuePairs,
+                classId: activeClassId,
+                assignmentId: activeAssignmentId,
+                uid: userInfo.uid,
+                url: window.location.href,
+            };
+            console.log("Bodyyyyy: ", body);
+            const response2 = await fetch(
+                "http://localhost:8000/notes/createNote",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: responseJSON.name,
+                        summary: responseJSON.summary,
+                        keyValuePairs: responseJSON.keyValuePairs,
+                        classId: activeClassId,
+                        assignmentId: activeAssignmentId,
+                        uid: userInfo.uid,
+                        url: window.location.href,
+                    }),
+                }
+            );
+            const secondResponseJSON = await response2.json();
+            console.log("Second Response: ", secondResponseJSON);
+
+            setNoteResponse(secondResponseJSON);
             setTextNote(true);
             setTextExplain(false);
             setTextSearch(false);
@@ -236,7 +276,9 @@ function Sidebar() {
                     body: JSON.stringify({ text: text }),
                 }
             );
-            setExplanationResponse(await response.json());
+            const responseJSON = await response.json();
+            console.log("Response: ", responseJSON);
+            setExplanationResponse(responseJSON);
             setTextNote(false);
             setTextExplain(true);
             setTextSearch(false);
@@ -251,6 +293,12 @@ function Sidebar() {
         setTextExplain(false);
         setTextSearch(false);
         setHomePage(true);
+    };
+
+    const handleNoteClick = (classId, assignmentId, noteId) => {
+        chrome.tabs.create({
+            url: `http://localhost:5173/${classId}-${assignmentId}/${noteId}`,
+        });
     };
 
     const handleDashboardClick = () => {
@@ -305,6 +353,7 @@ function Sidebar() {
                 <button className="nav-button" onClick={handleHomeClick}>
                     Home
                 </button>
+                <button className="nav-button">Login</button>
                 <button
                     className="nav-button"
                     onClick={handleDashboardClick}
@@ -331,6 +380,9 @@ function Sidebar() {
 
             {textNote ? (
                 <TextNote
+                    handleNoteClick={handleNoteClick}
+                    activeClassId={activeClassId}
+                    activeAssignmentId={activeAssignmentId}
                     text={currentPhrase}
                     data={noteResponse}
                 />
