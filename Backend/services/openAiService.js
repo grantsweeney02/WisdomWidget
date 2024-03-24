@@ -24,29 +24,6 @@ function parseResources(string) {
     return stockMarketData;
 }
 
-function parseExplanation(response) {
-    const parts = response.split("\n\n");
-    const result = {};
-    parts.forEach((part) => {
-        if (part.startsWith("Title:")) {
-            result["name"] = part.replace("Title:", "").trim();
-        } else if (part.startsWith("Explanation:")) {
-            result["explanation"] = part.replace("Explanation:", "").trim();
-        } else if (part.startsWith("Summary:")) {
-            result["summary"] = part.replace("Summary:", "").trim();
-        } else if (part.startsWith("Key Word:")) {
-            result["keyword"] = part.replace("Key Word:", "").trim();
-        }
-    });
-    const keyValuePairs = {};
-    if (result.keyword && result.explanation) {
-        keyValuePairs[result.keyword] = result.explanation;
-    }
-    result.keyValuePairs = keyValuePairs;
-    delete result.keyword;
-    return result;
-}
-
 async function fetchResources(query) {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
@@ -75,7 +52,20 @@ async function fetchExplanation(query) {
         messages: [
             {
                 role: "system",
-                content: `Given the following text:\n\nPlease respond with 4 parts. 1. Write a detailed explanation.\n2. Provide a suitable title.\n3. Summarize the text.\n4. Create a "Key Word"\nThe title should be a few words the summary should be about 20 words and the explanation can be 40 words. The key Word should be 2-3 words. I need "Title", "Summary", "Explanation", and "Key Word"`,
+                content: `Given the following text, summarize it for me and give me a title. Additionally, create a list of key terms within the text along with their definitions.
+                The title(name) should be around 5 words. The summary has around 20 words. The key term definitions should be around 20-40 words.
+                keyValuePairs will only contains one entry which is the key word mapped to the explanation.
+                keyValuePairs will can only have one extry.
+                Output the data in a JSON file with the following format:
+                {
+                    name: "",
+                    explanation: "",
+                    summary: "",
+                    keyValuePairs: [
+                      Key Word: "",  // this can be name : explanation
+                    ]
+                }
+                `,
             },
             {
                 role: "user",
@@ -85,7 +75,7 @@ async function fetchExplanation(query) {
     });
     const response = completion.choices[0].message.content;
     console.log(response);
-    return parseExplanation(response);
+    return JSON.parse(response);
 }
 
 async function fetchScan(query) {
@@ -116,14 +106,11 @@ async function fetchScan(query) {
         ],
     });
 
-    
     const response = completion.choices[0].message.content;
-    const startIdx = response.indexOf("{")
-    const endIdx = response.lastIndexOf("}")
-    response2 = response.slice(startIdx, endIdx + 1)
-    messageJSON = await JSON.parse(response2)
-    messageJSON
-    console.log(messageJSON);
+    const startIdx = response.indexOf("{");
+    const endIdx = response.lastIndexOf("}");
+    response2 = response.slice(startIdx, endIdx + 1);
+    messageJSON = await JSON.parse(response2);
     return messageJSON;
 }
 
