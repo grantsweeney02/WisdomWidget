@@ -67,7 +67,7 @@ const HomePage = ({
                 }),
             }
         );
-        setNewNote(await response.json());
+        setNewNote(await response2.json());
     };
 
     return (
@@ -82,7 +82,7 @@ const HomePage = ({
                 className="form-select"
             >
                 <option value="">Select Class</option>
-                {classes.map((classObj) => (
+                {classes && classes.map((classObj) => (
                     <option key={classObj.id} value={classObj.id}>
                         {classObj.name}
                     </option>
@@ -104,7 +104,7 @@ const HomePage = ({
                         ))}
                 </select>
             )}
-            {activeAssignmentId && newNote && (
+            {activeAssignmentId && (
                 <div>
                     <button
                         className="btn btn-primary"
@@ -112,7 +112,7 @@ const HomePage = ({
                     >
                         Generate Notes
                     </button>
-                    {newNoteGenerated && (
+                    {newNoteGenerated && newNote && (
                         <div>
                             <h2>Generated Note</h2>
                             <div className="card">
@@ -140,6 +140,7 @@ const HomePage = ({
                         </div>
                     )}
                     <h2>Notes</h2>
+                    {console.log("Notes for assignment", notesForAssignment)}
                     {notesForAssignment.map((note) => (
                         <div key={note.noteId} className="card">
                             <div className="card-body">
@@ -151,7 +152,7 @@ const HomePage = ({
                                         handleNoteClick(
                                             activeClassId,
                                             activeAssignmentId,
-                                            note.noteId
+                                            note.id
                                         )
                                     }
                                 >

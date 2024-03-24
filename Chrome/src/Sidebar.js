@@ -42,10 +42,10 @@ function Sidebar() {
     // }, []);
 
     useEffect(() => {
-        chrome.storage.sync.get(['userData'], function(result) {
+        chrome.storage.sync.get(["userData"], function (result) {
             if (result.userData) {
                 console.log("victory");
-              setUserInfo(result.userData);
+                setUserInfo(result.userData);
             }
         });
         const messageListener = (message, sender, sendResponse) => {
@@ -54,11 +54,6 @@ function Sidebar() {
                 // Here, you can handle the action, such as updating state or calling an API
                 handleTextAction(message.action, message.text);
                 sendResponse({ status: "Action received" });
-            }
-            if (message.type === "getUser") {
-                console.log(uid);
-                handleGetUser(message.uid, message.displayName, message.email);
-                sendResponse({ status: "Action reveived" });
             }
         };
         // Add the message listener
@@ -88,6 +83,30 @@ function Sidebar() {
         handleCreateNote();
     };
 
+    useEffect(() => {
+        if (userInfo) {
+            const getAllUserInfo = async () => {
+                const response = await fetch(
+                    "http://localhost:8000/users/retrieveUserData",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            uid: userInfo.uid,
+                            displayName: userInfo.displayName,
+                            email: userInfo.email,
+                        }),
+                    }
+                );
+                const data = await response.json();
+                console.log("All user Info:", data);
+            };
+            getAllUserInfo();
+        }
+    }, [userInfo]);
+
     const handleCreateNote = async () => {
         const dataToSend = {
             url: url,
@@ -114,11 +133,12 @@ function Sidebar() {
             console.error("Error:", error);
         }
     };
+
     const handleGetUser = async (uid, displayName, email) => {
         const dataToSend = {
-            uid: uid,
-            displayName: displayName,
-            email: email,
+            uid: userInfo.uid,
+            displayName: userInfo.displayName,
+            email: userInfo.email,
         };
 
         try {
@@ -268,11 +288,11 @@ function Sidebar() {
 
     useEffect(() => {
         if (activeAssignmentId) {
-            userData.classes
+            userInfo.classes
                 .find((classObj) => classObj.id === activeClassId)
                 .assignments.find((assignment) => {
                     if (assignment.id === activeAssignmentId) {
-                        console.log(assignment.notes);
+                        console.log("Notes SIDEBAR: ", assignment.notes);
                         setNotesForAssignment(assignment.notes);
                     }
                 });
@@ -296,8 +316,8 @@ function Sidebar() {
 
             {homePage ? (
                 <HomePage
-                    uid={userData.uid}
-                    classes={userData.classes}
+                    uid={userInfo.uid}
+                    classes={userInfo.classes}
                     activeClassId={activeClassId}
                     setActiveClassId={setActiveClassId}
                     activeAssignmentId={activeAssignmentId}
@@ -322,7 +342,7 @@ function Sidebar() {
             {textExplain ? (
                 <TextExplain
                     data={explanationResponse}
-                    uid={userData.uid}
+                    uid={userInfo.uid}
                     activeClassId={activeClassId}
                     activeAssignmentId={activeAssignmentId}
                 />
