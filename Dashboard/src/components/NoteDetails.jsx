@@ -30,7 +30,7 @@ const NoteDetails = ({}) => {
                     assignmentId: assignmentID,
 					noteId: noteID
                 };
-                // const response = await axios.get("http://localhost:8000/assignments/getAssignment", body);
+                // const response = await axios.post("http://localhost:8000/notes/getNote", body);
                 // console.log("Note Response: ", response.data);
                 // setData(response.data);
             };
@@ -73,7 +73,7 @@ const NoteDetails = ({}) => {
 	return (
 		<>
 			{noteID && (
-				<div className="col-10 note-details">
+				<div className="col-9 note-details">
 					<h1>
 						{data.assignmentName} - {data.note.name}
 					</h1>
