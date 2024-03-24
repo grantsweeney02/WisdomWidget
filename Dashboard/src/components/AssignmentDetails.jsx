@@ -94,7 +94,7 @@ const AssignmentDetails = ({}) => {
 							</div>
 						</div> */}
 					</div>
-					<Citations urls={getAllNoteUrls(assignment.notes)} />
+					{/* <Citations urls={getAllNoteUrls(assignment.notes)} /> */}
 					<h4>More Resources: </h4>
 					{assignment.recUrls.map((url, index) => (
 						<URLRec key={index} url={url} />
