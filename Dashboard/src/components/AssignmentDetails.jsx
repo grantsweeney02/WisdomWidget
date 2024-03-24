@@ -47,7 +47,6 @@ const AssignmentDetails = ({}) => {
         return urls;
     };
 
-    console.info(assignment);
     return (
         <>
             {assignment && (
