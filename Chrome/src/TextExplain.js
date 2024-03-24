@@ -10,6 +10,14 @@ const TextExplain = ({ data, activeClassId, activeAssignmentId, uid }) => {
             assignmentId: activeAssignmentId,
         };
         // TODO: SAVE NOTE
+        // call route to create note
+        const response = fetch("http://localhost:5173/notes/createNote", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+        });
     };
 
     return (

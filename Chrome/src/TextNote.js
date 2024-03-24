@@ -1,6 +1,13 @@
 import React from "react";
 
 const TextNote = ({ text, data }) => {
+
+    const handleNoteClick = (classId, assignmentId, noteId) => {
+        chrome.tabs.create({
+            url: `http://localhost:5173/${classId}-${assignmentId}/${noteId}`,
+        });
+    };
+
     return (
         <div>
             <h1 className="mb-4">Text Note</h1>

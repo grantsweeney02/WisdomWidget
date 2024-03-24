@@ -5,7 +5,7 @@ const TextSearch = ({ text, data }) => {
         <div>
             <h1 className="mb-4">Text Search</h1>
             <p className="lead">Search: {text}</p>
-            {data.map((item, index) => (
+            {data.resources.map((item, index) => (
                 <div key={index} className="card mb-3">
                     <div className="card-body">
                         <h5 className="card-title">{item.title}</h5>

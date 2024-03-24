@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 
 const HomePage = ({
     classes,
@@ -7,12 +8,54 @@ const HomePage = ({
     activeAssignmentId,
     setActiveAssignmentId,
     notesForAssignment,
-    handleGenerateNotes,
+    uid,
 }) => {
+    const [newNoteGenerated, setNewNoteGenerated] = useState(false);
+    const [newNote, setNewNote] = useState({});
+
     const handleNoteClick = (classId, assignmentId, noteId) => {
         chrome.tabs.create({
             url: `http://localhost:5173/${classId}-${assignmentId}/${noteId}`,
         });
+    };
+
+    const handleGenerateNotes = async () => {
+        console.log(
+            "Generating notes for assignment with id: ",
+            activeAssignmentId
+        );
+        let html = document.documentElement.outerHTML;
+        let cleanHTML = removeTagsFromDocument(html);
+        const response = await fetch("http://localhost:8000/services/scan", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                text: cleanHTML,
+            }),
+        });
+        setNewNoteGenerated(true);
+        const newRequest = await response.json();
+        const response2 = await fetch(
+            "http://localhost:8000/notes/createNote",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: newRequest.name,
+                    summary: newRequest.summary,
+                    keyValuePairs: newRequest.keyValuePairs,
+                    classId: activeClassId,
+                    assignmentId: activeAssignmentId,
+                    uid: uid,
+                    url: window.location.href,
+                }),
+            }
+        );
+        setNewNote(await response.json());
     };
 
     return (
@@ -21,8 +64,8 @@ const HomePage = ({
             {/* dropdown to select class from */}
             <select
                 onChange={(e) => {
-                    setActiveClassId(e.target.value)
-                    setActiveAssignmentId(null)
+                    setActiveClassId(e.target.value);
+                    setActiveAssignmentId(null);
                 }}
                 className="form-select"
             >
@@ -49,7 +92,7 @@ const HomePage = ({
                         ))}
                 </select>
             )}
-            {activeAssignmentId && (
+            {activeAssignmentId && newNote && (
                 <div>
                     <button
                         className="btn btn-primary"
@@ -57,6 +100,33 @@ const HomePage = ({
                     >
                         Generate Notes
                     </button>
+                    {newNoteGenerated && (
+                        <div>
+                            <h2>Generated Note</h2>
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">
+                                        {newNote.name}
+                                    </h5>
+                                    <p className="card-text">
+                                        {newNote.summary}
+                                    </p>
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() =>
+                                            handleNoteClick(
+                                                activeClassId,
+                                                activeAssignmentId,
+                                                newNote.noteId
+                                            )
+                                        }
+                                    >
+                                        View in Dashboard
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     <h2>Notes</h2>
                     {notesForAssignment.map((note) => (
                         <div key={note.noteId} className="card">

@@ -22,6 +22,25 @@ function Sidebar() {
     const [currentPhrase, setCurrentPhrase] = useState("");
 
     const userData = dummyData;
+
+    useEffect(() => {
+        const call = async () => {
+            const response = await fetch(
+                "http://localhost:8000/services/explain",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ text: "Java Streams" }),
+                }
+            );
+            const data = await response.json();
+            console.log("Test Response:", data);
+        };
+        call();
+    }, []);
+
     useEffect(() => {
         const messageListener = (message, sender, sendResponse) => {
             if (message.type === "textAction") {
@@ -39,9 +58,9 @@ function Sidebar() {
             chrome.runtime.onMessage.addListener(messageListener);
 
             // Clean up the listener when the component unmounts
-            return () => {
-                chrome.runtime.onMessage.removeListener(messageListener);
-            };
+            // return () => {
+            //     chrome.runtime.onMessage.removeListener(messageListener);
+            // };
         };
     }, []); // Empty dependency array means this effect runs once on mount
 
@@ -133,7 +152,7 @@ function Sidebar() {
     const handleTextActionNote = async (text) => {
         try {
             const response = await fetch(
-                "http://localhost:8000/services/note",
+                "http://localhost:8000/services/explain",
                 {
                     method: "POST",
                     headers: {
@@ -141,9 +160,6 @@ function Sidebar() {
                     },
                     body: JSON.stringify({
                         text: text,
-                        uid: userData.uid,
-                        classId: activeClassId,
-                        assignmentId: activeAssignmentId,
                     }),
                 }
             );
@@ -167,7 +183,7 @@ function Sidebar() {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        text: text,
+                        selectedText: text,
                     }),
                 }
             );
@@ -215,12 +231,34 @@ function Sidebar() {
         chrome.tabs.create({ url: "http://localhost:5173/" });
     };
 
-    const handleGenerateNotes = () => {
-        console.log(
-            "Generating notes for assignment with id: ",
-            activeAssignmentId
-        );
-    };
+    // const handleGenerateNotes = () => {
+    //     console.log(
+    //         "Generating notes for assignment with id: ",
+    //         activeAssignmentId
+    //     );
+    //     let html = document.documentElement.outerHTML;
+    //     let cleanHTML = removeTagsFromDocument(html);
+    //     const response = fetch("http://localhost:8000/services/scan", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             text: cleanHTML,
+    //         }),
+    //     });
+
+    // };
+
+    function removeTagsFromDocument(htmlDocument) {
+        const $ = cheerio.load(htmlDocument);
+        $("script").remove();
+
+        return $.text()
+            .replace(/\s\s+/g, " ")
+            .trim()
+            .replace(/[\r\n]+/g, " ");
+    }
 
     useEffect(() => {
         if (activeAssignmentId) {
@@ -252,13 +290,14 @@ function Sidebar() {
 
             {homePage ? (
                 <HomePage
+                    uid={userData.uid}
                     classes={userData.classes}
                     activeClassId={activeClassId}
                     setActiveClassId={setActiveClassId}
                     activeAssignmentId={activeAssignmentId}
                     setActiveAssignmentId={setActiveAssignmentId}
                     notesForAssignment={notesForAssignment}
-                    handleGenerateNotes={handleGenerateNotes}
+                    // handleGenerateNotes={handleGenerateNotes}
                 />
             ) : (
                 ""
