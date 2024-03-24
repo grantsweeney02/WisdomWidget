@@ -17,7 +17,7 @@ function Sidebar() {
     const [activeAssignmentId, setActiveAssignmentId] = useState(null);
     const [notesForAssignment, setNotesForAssignment] = useState([]);
     const [explanationResponse, setExplanationResponse] = useState({});
-    const [searchResponse, setSearchResponse] = useState({});
+    const [searchResponse, setSearchResponse] = useState([]);
     const [noteResponse, setNoteResponse] = useState({});
     const [currentPhrase, setCurrentPhrase] = useState("");
 
@@ -35,6 +35,7 @@ function Sidebar() {
                 handleGetUser(message.uid, message.displayName, message.email);
                 sendResponse({ status: "Action reveived" });
             }
+        };
             // Add the message listener
             chrome.runtime.onMessage.addListener(messageListener);
 
@@ -42,7 +43,6 @@ function Sidebar() {
             return () => {
                 chrome.runtime.onMessage.removeListener(messageListener);
             };
-        };
     }, []); // Empty dependency array means this effect runs once on mount
 
     const handleButtonClick = () => {
