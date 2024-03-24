@@ -1,9 +1,9 @@
 const cheerio = require("cheerio");
 const { summarize } = require("../openai");
-const { searchWebResources } = require("../services/openAiService");
+const { fetchResources } = require("../services/openAIService")
 
 exports.openai = async (req, res) => {
-    const { pageContent, url } = req.body;
+    const { pageContent } = req.body;
 
     const parsedHTML = parseHTML(pageContent);
     const summary = await summarize(parsedHTML);
@@ -15,7 +15,7 @@ exports.searchResources = async (req, res) => {
     const { selectedText } = req.body;
 
     try {
-        const resources = await searchWebResources(selectedText);
+        const resources = await fetchResources(selectedText);
         res.json({ resources });
     } catch (error) {
         res.status(500).send("Failed to fetch resources");

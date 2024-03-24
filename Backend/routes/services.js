@@ -3,6 +3,7 @@ const router = express.Router();
 const servicesController = require("../controllers/servicesController");
 
 router.post("/openai", servicesController.openai);
-router.post("/searchResources, servicesController.searchResources");
+router.post("/searchResources", servicesController.searchResources);
+// router.post("/explain", servicesController)
 
 module.exports = router;
