@@ -39,7 +39,7 @@ exports.getAssignment = async (req, res) => {
 };
 
 exports.createAssignment = async (req, res) => {
-    const { uid, classId } = req.body;
+    const { uid, classId, name } = req.body;
     try {
         const assignmentsRef = db
             .collection("users")
@@ -50,17 +50,15 @@ exports.createAssignment = async (req, res) => {
 
         const newAssignmentRef = assignmentsRef.doc();
         await newAssignmentRef.set({
-            name: "Introduction Assignment",
-            usedUrls: ["https://example.com/getting-started"],
-            recUrls: [
-                "https://example.com/features-overview",
-                "https://example.com/best-practices",
-            ],
+            name: name,
+            usedUrls: [],
+            recUrls: [],
         });
 
         const newNoteRef = newAssignmentRef.collection("notes").doc();
         await newNoteRef.set({
             name: "Getting Started",
+            url: "www.getting-started.com",
             summary:
                 "Welcome to our app! Here's how to get the most out of it:",
             keyValuePairs: {
