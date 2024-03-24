@@ -69,6 +69,14 @@ const NoteDetails = ({}) => {
         setAddingKeyword(false);
     };
 
+    useEffect(() => {
+        if (data) {
+            console.log("Data value: ", data);
+        }
+    }, [data]);
+
+    console.log(data)
+
     return (
         <>
             {data && (
@@ -83,23 +91,18 @@ const NoteDetails = ({}) => {
                     <p>{data.summary}</p>
                     <div className="keywords">
                         {data &&
-                            Object.entries(data.keyValuePairs).map(
-                                ([keyword, definition]) => (
-                                    <div
-                                        key={keyword}
-                                        className="keyword-container"
-                                    >
-                                        <div className="keyword-card">
-                                            <h5 className="keyword">
-                                                {keyword}
-                                            </h5>
-                                            <p className="definition">
-                                                {definition}
-                                            </p>
-                                        </div>
+                            data.keyValuePairs.map((item, index) => (
+                                <div key={index} className="keyword-container">
+                                    <div className="keyword-card">
+                                        <h5 className="keyword">
+                                            {Object.keys(item)[0]}
+                                        </h5>
+                                        <p className="definition">
+                                            {Object.values(item)[0]}
+                                        </p>
                                     </div>
-                                )
-                            )}
+                                </div>
+                            ))}
                         {/* {addingKeyword ? (
 							<div className="keyword-add-container">
 								<input

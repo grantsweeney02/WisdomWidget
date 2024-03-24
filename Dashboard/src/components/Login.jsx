@@ -49,7 +49,7 @@ const Login = ({ data, setUserData }) => {
 
     return (
         <div className={"login-container" + (loggedIn ? " col-9" : "")}>
-            <h1>Welcome to ____!</h1>
+            <h1>Welcome to WisdomWidget!</h1>
             {!loggedIn && (
                 <button
                     className="btn btn-primary login-button"
@@ -59,9 +59,7 @@ const Login = ({ data, setUserData }) => {
                     Login with Google
                 </button>
             )}
-            {loggedIn && (
-                <h2>Select a Course and Assignment to View Notes</h2>
-            )}
+            {loggedIn && <h2>Select a Course and Assignment to View Notes</h2>}
         </div>
     );
 };

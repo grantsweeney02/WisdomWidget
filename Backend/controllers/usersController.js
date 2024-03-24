@@ -30,14 +30,20 @@ exports.retrieveUserData = async (req, res) => {
                 url: "www.getting-started.com",
                 summary:
                     "Welcome to our app! Here's how to get the most out of it:",
-                keyValuePairs: {
-                    "Create Class":
-                        "Start by creating a new class for your subjects or projects.",
-                    "Add Assignment":
-                        "Add assignments to your class and track your progress.",
-                    "Take Notes":
-                        "Keep detailed notes for each assignment. You can include key terms, summaries, and URLs for reference.",
-                },
+                keyValuePairs: [
+                    {
+                        "Create Class":
+                            "Start by creating a new class for your subjects or projects.",
+                    },
+                    {
+                        "Add Assignment":
+                            "Add assignments to your class and track your progress.",
+                    },
+                    {
+                        "Take Notes":
+                            "Keep detailed notes for each assignment. You can include key terms, summaries, and URLs for reference.",
+                    },
+                ],
             });
         }
         const classesSnapshot = await userRef.collection("classes").get();
