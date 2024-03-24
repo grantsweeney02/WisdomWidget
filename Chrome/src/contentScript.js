@@ -98,6 +98,13 @@ const actions = [
       const button = document.createElement('button');
       const icon = document.createElement('i');
       icon.className = `${action.icon} fa-2x`;
+      icon.style = `color: #B197FC`;
+      icon.addEventListener('mouseenter', function () {
+        this.style.color = '#5a3db3'; // Change to your preferred hover color
+      });
+      icon.addEventListener('mouseleave', function () {
+        this.style.color = '#B197FC'; // Reset to default color
+      });
       button.appendChild(icon);
       button.style.borderRadius = '2px';
       button.style.background = 'grey';

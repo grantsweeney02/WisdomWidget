@@ -63,14 +63,14 @@ function handleSidebarVisibility(shouldBeVisible) {
         chrome.storage.local.set({ sidebarVisible: !isOpen });
         iframe.style.width = isOpen ? '30px' : '450px';
         iframe.style.overflow = 'hidden';
-        icon.className = isOpen ? `fa-solid fa-circle-chevron-left fa-3x` : `fa-solid fa-circle-chevron-right fa-3x`;
+        icon.className = isOpen ? `fa-solid fa-circle-chevron-left fa-2x` : `fa-solid fa-circle-chevron-right fa-2x`;
         toggleButton.style.right = isOpen ? '0px' : '420px';
       });
     }
 
 		// Set initial visibility based on the shouldBeVisible flag
 		iframe.style.width = shouldBeVisible ? "450px" : "30px"
-		toggleButton.style.right = shouldBeVisible ? "420px" : "10px"
+		toggleButton.style.right = shouldBeVisible ? "420px" : "0px"
 	} else {
 		if (iframe) {
 			iframe.remove()
