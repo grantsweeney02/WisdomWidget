@@ -7,6 +7,11 @@
 	margin-bottom: 2rem;
 }
 
+.back-button:hover {
+	background-color: var(--bg-secondary);
+	color: var(--accent-primary);
+}
+
 .keywords {
 	margin: 3rem 0rem;
 }

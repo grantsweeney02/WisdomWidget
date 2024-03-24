@@ -110,10 +110,10 @@ const NoteDetails = ({}) => {
 							</div>
 						) : (
 							<button className="keyword-add-container" onClick={() => handleAddKeyword()}>
-								<button className="btn keyword-add-button">
+								<div className="btn keyword-add-button">
 									<AddIcon />
 									Add Keyword
-								</button>
+								</div>
 							</button>
 						)}
 					</div>

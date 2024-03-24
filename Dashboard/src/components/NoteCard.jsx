@@ -1,18 +1,18 @@
-import { Link, useNavigate } from "react-router-dom";
-import "../styles/NoteCard.css";
+import { Link, useNavigate } from "react-router-dom"
+import "../styles/NoteCard.css"
 
 const NoteCard = ({ assignmentID, note }) => {
-    const navigate = useNavigate();
+	const navigate = useNavigate()
 
-    return (
-        <Link to={`/${assignmentID}/${note.id}`} className="card note-summary-card">
-            <div className="card-header note-card-header">{note.name}</div>
-            <div className="card-body note-card-body">
-                {/* TODO: cut off the summary with a ... after a certain number of characters */}
-                <p className="card-text note-card-text">{note.summary}</p>
-            </div>
-        </Link>
-    );
-};
+	return (
+		<Link to={`/${assignmentID}/${note.id}`} className="note-summary-card">
+			<div className="note-card-header">{note.name}</div>
+			<div className="note-card-body">
+				{/* TODO: cut off the summary with a ... after a certain number of characters */}
+				<p className="note-card-text">{note.summary}</p>
+			</div>
+		</Link>
+	)
+}
 
-export default NoteCard;
+export default NoteCard

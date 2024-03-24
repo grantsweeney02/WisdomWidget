@@ -10,32 +10,33 @@
 .note-summary-card {
 	cursor: pointer;
 	height: 10rem;
+	padding: 1rem;
 	text-decoration: none;
+	background-color: var(--bg-secondary);
+	border: 1px solid var(--bg-secondary);
+	border-radius: 1rem;
 	transition: all 0.2s;
 }
 
-.card {
-	background-color: var(--bg-primary);
-	border: 1px solid var(--text-primary);
-	transition: all 0.2s;
-}
-
-.card:hover {
+.note-summary-card:hover {
 	border-color: var(--accent-primary);
 	transform: translateY(-3px);
 }
 
-.card-header {
-	background-color: var(--bg-primary);
+.note-card-header {
 	color: var(--text-primary);
 	border: none;
 }
 
-.card-body {
-	background-color: var(--bg-primary);
+.note-card-body {
 	color: var(--text-secondary);
 	margin: 5px 0px;
 	border: none;
+}
+
+.note-summary-card.url {
+	height: auto;
+	margin: 1rem 0rem;
 }
 
 .url-rec {
