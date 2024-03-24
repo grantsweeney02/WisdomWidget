@@ -20,20 +20,22 @@ function Sidebar() {
     const [searchResponse, setSearchResponse] = useState([]);
     const [noteResponse, setNoteResponse] = useState({});
     const [currentPhrase, setCurrentPhrase] = useState("");
+    const [userInfo, setUserInfo] = useState({});
 
     const userData = dummyData;
     useEffect(() => {
+        chrome.storage.sync.get(['userData'], function(result) {
+            if (result.userData) {
+                console.log("victory");
+              setUserInfo(result.userData);
+            }
+        });
         const messageListener = (message, sender, sendResponse) => {
             if (message.type === "textAction") {
                 console.log(`Action: ${message.action}, Text: ${message.text}`);
                 // Here, you can handle the action, such as updating state or calling an API
                 handleTextAction(message.action, message.text);
                 sendResponse({ status: "Action received" });
-            }
-            if (message.type === "getUser") {
-                console.log(uid);
-                handleGetUser(message.uid, message.displayName, message.email);
-                sendResponse({ status: "Action reveived" });
             }
         };
             // Add the message listener
