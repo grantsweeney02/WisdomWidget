@@ -3,7 +3,7 @@ body {
 }
 
 .notes-root {
-    margin-left: 30px;
+	margin-left: 30px;
 	padding: 2rem;
 }
 
@@ -11,7 +11,7 @@ body {
 	display: flex;
 	justify-content: center;
 	gap: 1rem;
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 
 .nav-button {
@@ -107,4 +107,19 @@ fieldset:disabled .form-select {
 	border: none;
 	border-radius: 1rem;
 	padding: 0.5rem 1rem;
+}
+
+.notes {
+	margin-top: 3rem;
+}
+
+.loader-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 3rem;
+}
+
+.generated-note {
+	margin-top: 2rem;
 }
