@@ -9,6 +9,11 @@ function handleSidebarVisibility(shouldBeVisible) {
   let toggleButton = document.getElementById('my-extension-toggle-btn');
   if (shouldBeVisible) {
     if (!iframe) {
+      const link = document.createElement('link');
+      link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css';
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+
       iframe = document.createElement('iframe');
       iframe.id = 'my-extension-sidebar';
       iframe.style.height = '100vh';
@@ -29,7 +34,7 @@ function handleSidebarVisibility(shouldBeVisible) {
       toggleButton.textContent = 'Tog';
       toggleButton.style.position = 'fixed';
       toggleButton.style.top = '20px';
-      toggleButton.style.right = '10px';
+      toggleButton.style.right = '0px';
       toggleButton.style.zIndex = '1001';
       toggleButton.style.transition = 'right 0.3s ease-in-out';
       document.body.appendChild(toggleButton);
@@ -38,7 +43,7 @@ function handleSidebarVisibility(shouldBeVisible) {
         const isOpen = iframe.style.width === '450px';
         chrome.storage.local.set({ sidebarVisible: !isOpen });
         iframe.style.width = isOpen ? '30px' : '450px';
-        toggleButton.style.right = isOpen ? '10px' : '420px';
+        toggleButton.style.right = isOpen ? '0px' : '420px';
       });
     }
 

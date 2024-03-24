@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import "../styles/NoteCard.css";
+import { Link, useNavigate } from "react-router-dom"
+import "../styles/NoteCard.css"
 
 const NoteCard = ({ classID, assignmentID, note }) => {
     const navigate = useNavigate();
@@ -18,4 +18,4 @@ const NoteCard = ({ classID, assignmentID, note }) => {
     );
 };
 
-export default NoteCard;
+export default NoteCard
