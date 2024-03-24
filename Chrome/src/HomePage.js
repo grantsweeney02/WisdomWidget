@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import cheerio from "cheerio";
 
 const HomePage = ({
     classes,
@@ -19,6 +20,16 @@ const HomePage = ({
         });
     };
 
+    function removeTagsFromDocument(htmlDocument) {
+        const $ = cheerio.load(htmlDocument);
+        $("script").remove();
+
+        return $.text()
+            .replace(/\s\s+/g, " ")
+            .trim()
+            .replace(/[\r\n]+/g, " ");
+    }
+
     const handleGenerateNotes = async () => {
         console.log(
             "Generating notes for assignment with id: ",
@@ -26,6 +37,7 @@ const HomePage = ({
         );
         let html = document.documentElement.outerHTML;
         let cleanHTML = removeTagsFromDocument(html);
+        console.log("Clean HTML", cleanHTML);
         const response = await fetch("http://localhost:8000/services/scan", {
             method: "POST",
             headers: {

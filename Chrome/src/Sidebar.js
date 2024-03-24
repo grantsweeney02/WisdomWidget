@@ -17,29 +17,28 @@ function Sidebar() {
     const [activeAssignmentId, setActiveAssignmentId] = useState(null);
     const [notesForAssignment, setNotesForAssignment] = useState([]);
     const [explanationResponse, setExplanationResponse] = useState({});
-    const [searchResponse, setSearchResponse] = useState({});
+    const [searchResponse, setSearchResponse] = useState([]);
     const [noteResponse, setNoteResponse] = useState({});
     const [currentPhrase, setCurrentPhrase] = useState("");
 
     const userData = dummyData;
 
-    useEffect(() => {
-        const call = async () => {
-            const response = await fetch(
-                "http://localhost:8000/services/explain",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ text: "Java Streams" }),
-                }
-            );
-            const data = await response.json();
-            console.log("Test Response:", data);
-        };
-        call();
-    }, []);
+    // useEffect(() => {
+    //     const call = async () => {
+    //         const response = await fetch(
+    //             "http://localhost:8000/services/",
+    //             {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                 },
+    //             }
+    //         );
+    //         const data = await response.json();
+    //         console.log("Test Response:", data);
+    //     };
+    //     call();
+    // }, []);
 
     useEffect(() => {
         const messageListener = (message, sender, sendResponse) => {
@@ -54,13 +53,13 @@ function Sidebar() {
                 handleGetUser(message.uid, message.displayName, message.email);
                 sendResponse({ status: "Action reveived" });
             }
-            // Add the message listener
-            chrome.runtime.onMessage.addListener(messageListener);
+        };
+        // Add the message listener
+        chrome.runtime.onMessage.addListener(messageListener);
 
-            // Clean up the listener when the component unmounts
-            // return () => {
-            //     chrome.runtime.onMessage.removeListener(messageListener);
-            // };
+        //Clean up the listener when the component unmounts
+        return () => {
+            chrome.runtime.onMessage.removeListener(messageListener);
         };
     }, []); // Empty dependency array means this effect runs once on mount
 
