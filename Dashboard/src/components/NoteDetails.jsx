@@ -1,93 +1,106 @@
-import { useNavigate, useParams } from "react-router-dom"
-import { useState } from "react"
-import "../styles/NoteDetails.css"
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
-import AddIcon from "@mui/icons-material/Add"
-import CheckIcon from "@mui/icons-material/Check"
-import CloseIcon from "@mui/icons-material/Close"
-import { useEffect, useContext } from "react"
-import { UserContext } from "../App"
-import axios from "axios"
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import "../styles/NoteDetails.css";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import AddIcon from "@mui/icons-material/Add";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import { useEffect, useContext } from "react";
+import { UserContext } from "../App";
+import axios from "axios";
 
 const NoteDetails = ({}) => {
-	const { classIDassignmentID, noteID } = useParams()
-	const classID = classIDassignmentID.split("-")[0]
-	const assignmentID = classIDassignmentID.split("-")[1]
-	const navigate = useNavigate()
-	const [newKeyword, setNewKeyword] = useState("")
-	const [newDefinition, setNewDefinition] = useState("")
-	const [addingKeyword, setAddingKeyword] = useState(false)
-	const [data, setData] = useState(null) // Initial data from demoResponse
+    const { classIDassignmentID, noteID } = useParams();
+    const classID = classIDassignmentID.split("-")[0];
+    const assignmentID = classIDassignmentID.split("-")[1];
+    const navigate = useNavigate();
+    const [newKeyword, setNewKeyword] = useState("");
+    const [newDefinition, setNewDefinition] = useState("");
+    const [addingKeyword, setAddingKeyword] = useState(false);
+    const [data, setData] = useState(null); // Initial data from demoResponse
+    const [Keywords, setKeywords] = useState(null);
 
-	const userData = useContext(UserContext).userData
+    const userData = useContext(UserContext).userData;
 
-	useEffect(() => {
-		if (userData) {
-			const populateNote = async () => {
-				const uid = userData.uid
-				const body = {
-					uid: uid,
-					classId: classID,
-					assignmentId: assignmentID,
-					noteId: noteID,
-				}
-				const response = await axios.post("http://localhost:8000/notes/getNote", body)
-				setData(response.data)
-			}
-			populateNote()
-		}
-	}, [userData])
+    if (data) {
+        console.log("DATA", data);
+    }
 
-	const handleBack = () => {
-		navigate(-1)
-	}
+    useEffect(() => {
+        if (userData) {
+            const populateNote = async () => {
+                const uid = userData.uid;
+                const body = {
+                    uid: uid,
+                    classId: classID,
+                    assignmentId: assignmentID,
+                    noteId: noteID,
+                };
+                const response = await axios.post(
+                    "http://localhost:8000/notes/getNote",
+                    body
+                );
+                setData(response.data);
+            };
+            populateNote();
+        }
+    }, [userData]);
 
-	const handleAddKeyword = () => {
-		setAddingKeyword(true)
-	}
+    const handleBack = () => {
+        navigate(-1);
+    };
 
-	const handleConfirmAddKeyword = () => {
-		const newData = { ...data }
-		newData.keyValuePairs[newKeyword] = newDefinition
-		setData(newData)
-		setNewKeyword("")
-		setNewDefinition("")
-		setAddingKeyword(false)
-	}
+    const handleAddKeyword = () => {
+        setAddingKeyword(true);
+    };
 
-	const handleCancelAddKeyword = () => {
-		setNewKeyword("")
-		setNewDefinition("")
-		setAddingKeyword(false)
-	}
+    const handleConfirmAddKeyword = () => {
+        const newData = { ...data };
+        newData.keyValuePairs[newKeyword] = newDefinition;
+        setData(newData);
+        setNewKeyword("");
+        setNewDefinition("");
+        setAddingKeyword(false);
+    };
 
-	let Keywords = null
+    const handleCancelAddKeyword = () => {
+        setNewKeyword("");
+        setNewDefinition("");
+        setAddingKeyword(false);
+    };
 
-	useEffect(() => {
-		if (data) {
-			Keywords = Object.entries(data.keyValuePairs).map(([keyword, definition]) => (
-				<div key={keyword} className="keyword-container">
-					<div className="keyword-card">
-						<h5 className="keyword">{keyword}</h5>
-						<p className="definition">{definition}</p>
-					</div>
-				</div>
-			))
-		}
-	}, [data])
+    useEffect(() => {
+        if (data) {
+            console.log("Mapping over", Object.entries(data.keyValuePairs[0]));
+            const k = Object.entries(data.keyValuePairs[0]).map(
+                ([keyword, definition]) => (
+                    <div key={keyword} className="keyword-container">
+                        <div className="keyword-card">
+                            <h5 className="keyword">{keyword}</h5>
+                            <p className="definition">{definition}</p>
+                        </div>
+                    </div>
+                )
+            );
+            setKeywords(k);
+        }
+    }, [data]);
 
-	return (
-		<>
-			{data && (
-				<div className="col-9 note-details">
-					<h1>{data.name}</h1>
-					<button className="btn back-button" onClick={() => handleBack()}>
-						<ArrowBackIosNewIcon />
-					</button>
-					<p>{data.summary}</p>
-					<div className="keywords">
-						{Keywords}
-						{/* {addingKeyword ? (
+    return (
+        <>
+            {data && (
+                <div className="col-9 note-details">
+                    <h1>{data.name}</h1>
+                    <button
+                        className="btn back-button"
+                        onClick={() => handleBack()}
+                    >
+                        <ArrowBackIosNewIcon />
+                    </button>
+                    <p>{data.summary}</p>
+                    <div className="keywords">
+                        {Keywords}
+                        {/* {addingKeyword ? (
 							<div className="keyword-add-container">
 								<input
 									className="form-control keyword-input"
@@ -120,23 +133,25 @@ const NoteDetails = ({}) => {
 								</div>
 							</button>
 						)} */}
-					</div>
-					{data.url && (
-						<h4>
-							Source: <a href={data.url}>{data.url}</a>
-						</h4>
-					)}
-					{!data.url && (
-						<>
-							<h4>Source:</h4>
-							<p>None Provided</p>
-							<button className="btn btn-primary">Add Source</button>
-						</>
-					)}
-				</div>
-			)}
-		</>
-	)
-}
+                    </div>
+                    {data.url && (
+                        <h4>
+                            Source: <a href={data.url}>{data.url}</a>
+                        </h4>
+                    )}
+                    {!data.url && (
+                        <>
+                            <h4>Source:</h4>
+                            <p>None Provided</p>
+                            <button className="btn btn-primary">
+                                Add Source
+                            </button>
+                        </>
+                    )}
+                </div>
+            )}
+        </>
+    );
+};
 
-export default NoteDetails
+export default NoteDetails;
