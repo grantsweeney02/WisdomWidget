@@ -2,8 +2,8 @@ const express = require("express");
 var cors = require("cors");
 const admin = require("firebase-admin");
 
-var serviceAccount = require("./api_keys.json");
 require("dotenv/config")
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
