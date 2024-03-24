@@ -353,7 +353,6 @@ function Sidebar() {
                 <button className="nav-button" onClick={handleHomeClick}>
                     Home
                 </button>
-                <button className="nav-button">Login</button>
                 <button
                     className="nav-button"
                     onClick={handleDashboardClick}
