@@ -27,6 +27,7 @@ exports.retrieveUserData = async (req, res) => {
             const noteRef = assignmentRef.collection("notes").doc();
             await noteRef.set({
                 name: "Getting Started",
+                url: "www.getting-started.com",
                 summary:
                     "Welcome to our app! Here's how to get the most out of it:",
                 keyValuePairs: {
