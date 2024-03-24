@@ -21,6 +21,31 @@ document.addEventListener('mouseup', function (e) {
   }
 });
 
+// Immediately-invoked function to check conditions as soon as possible
+(function() {
+  const userDataLocal = localStorage.getItem('userData');
+  const userDataParsed = userDataLocal ? JSON.parse(userDataLocal) : null;
+
+  if (userDataParsed) {
+    console.log('Local userData:', userDataParsed);
+    chrome.storage.sync.get('userData', (result) => {
+      if (result.userData) {
+        console.log('Sync userData already set.');
+      } else {
+        console.log('Setting sync userData...');
+        chrome.storage.sync.set({ userData: userDataParsed }, () => {
+          console.log('UserData saved to sync storage.');
+        });
+      }
+    });
+  } else {
+    console.log('No userData found in local storage.');
+    // Additional logic for when userData isn't found
+  }
+})();
+
+
+
 function getSelectionCoordinates() {
   const selection = window.getSelection();
   if (!selection.rangeCount) return false; // Exit if no selection
@@ -104,4 +129,10 @@ const actions = [
   });
 
   document.body.appendChild(actionMenu);
+}
+
+for (let i = 0; i < localStorage.length; i++) {
+  const key = localStorage.key(i);
+  const value = localStorage.getItem(key);
+  console.log(`${key}: ${value}`);
 }

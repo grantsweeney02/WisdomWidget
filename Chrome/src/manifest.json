@@ -13,8 +13,11 @@
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["contentScript.js", "toggleSidebar.js"]
-
+        "js": ["contentScript.js"]
+      },
+      {
+        "matches": ["<all_urls>"],
+        "js": ["toggleSidebar.js"]
       }
     ],
     "web_accessible_resources": [
