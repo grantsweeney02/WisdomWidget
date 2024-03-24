@@ -9,8 +9,6 @@ import "./styles/bootstrap.min.css";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function Sidebar() {
-    const [url, setUrl] = useState("");
-    const [source, setSource] = useState("");
     const [textExplain, setTextExplain] = useState(false);
     const [textSearch, setTextSearch] = useState(false);
     const [textNote, setTextNote] = useState(false);
