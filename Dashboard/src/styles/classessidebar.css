@@ -72,13 +72,13 @@
 .add-class-button {
 	width: 100%;
 	background-color: var(--bg-primary);
-	color: var(--text-primary);
+	color: var(--text-secondary);
 	text-align: left;
 	margin-top: 1rem;
 }
 
 .add-class-button:hover {
-	color: var(--text-primary);
+	color: var(--text-secondary);
 	background-color: var(--accent-secondary);
 }
 

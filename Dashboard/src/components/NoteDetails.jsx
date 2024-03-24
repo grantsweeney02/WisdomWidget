@@ -4,7 +4,7 @@ import "../styles/NoteDetails.css"
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import AddIcon from "@mui/icons-material/Add"
 import CheckIcon from "@mui/icons-material/Check"
-import CancelIcon from "@mui/icons-material/Cancel"
+import CloseIcon from "@mui/icons-material/Close"
 
 const NoteDetails = ({}) => {
 	const { classIDassignmentID, noteID } = useParams()
@@ -63,22 +63,36 @@ const NoteDetails = ({}) => {
 						{Keywords}
 						{addingKeyword ? (
 							<div className="keyword-add-container">
-								<input type="text" placeholder="New Keyword" value={newKeyword} onChange={(e) => setNewKeyword(e.target.value)} />
-								<input type="text" placeholder="Definition" value={newDefinition} onChange={(e) => setNewDefinition(e.target.value)} />
-								<button className="confirm-add-keyword-button" onClick={handleConfirmAddKeyword}>
-									<CheckIcon />
-								</button>
-								<button className="cancel-add-keyword-button" onClick={handleCancelAddKeyword}>
-									<CancelIcon />
-								</button>
+								<input
+									className="form-control keyword-input"
+									type="text"
+									placeholder="New Keyword"
+									value={newKeyword}
+									onChange={(e) => setNewKeyword(e.target.value)}
+								/>
+								<input
+									className="form-control definition-input"
+									type="text"
+									placeholder="Definition"
+									value={newDefinition}
+									onChange={(e) => setNewDefinition(e.target.value)}
+								/>
+								<div className="keyword-confirm-buttons">
+									<button className="btn" onClick={handleConfirmAddKeyword}>
+										<CheckIcon />
+									</button>
+									<button className="btn" onClick={handleCancelAddKeyword}>
+										<CloseIcon />
+									</button>
+								</div>
 							</div>
 						) : (
-							<div className="keyword-add-container">
-								<button className="keyword-add-button" onClick={() => handleAddKeyword()}>
+							<button className="keyword-add-container" onClick={() => handleAddKeyword()}>
+								<button className="btn keyword-add-button">
 									<AddIcon />
 									Add Keyword
 								</button>
-							</div>
+							</button>
 						)}
 					</div>
 					{data.note.url && (

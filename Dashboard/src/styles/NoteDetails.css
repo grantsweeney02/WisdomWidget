@@ -36,10 +36,13 @@
 }
 
 .keyword-add-container {
-	width: 100%;
+	display: flex;
+	align-items: center;
+	width: calc(100% - 2rem);
+	box-sizing: border-box;
 	background-color: var(--bg-primary);
 	padding: 1rem;
-	margin: 1rem;
+	margin-inline: 1rem;
 	border: 1px dashed var(--text-secondary);
 	border-radius: 1rem;
 }
@@ -52,6 +55,54 @@
 	background-color: var(--bg-primary);
 }
 
-.add-keyword-p {
-	margin: 0px;
+.keyword-add-button {
+	display: flex;
+	color: var(--text-secondary);
+}
+
+.keyword-add-inputs {
+	display: flex;
+}
+
+
+.form-control.keyword-input,
+.form-control.keyword-input:active,
+.form-control.keyword-input:focus,
+.form-control.definition-input,
+.form-control.definition-input:active,
+.form-control.definition-input:focus {
+	background-color: var(--bg-secondary);
+	color: var(--text-primary);
+	margin-bottom: 0px !important;
+	border: none;
+}
+
+.form-control::placeholder {
+	color: var(--text-secondary);
+}
+
+.keyword-input {
+	width: 30%;
+	margin-right: 1rem;
+}
+
+.definition-input {
+	width: 59%;
+}
+
+.keyword-confirm-buttons {
+	flex-grow: 1;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.keyword-confirm-buttons button {
+	border-radius: 1rem;
+	color: var(--text-primary);
+}
+
+.keyword-confirm-buttons button:hover {
+	background-color: var(--accent-primary);
+	color: var(--text-primary);
 }
