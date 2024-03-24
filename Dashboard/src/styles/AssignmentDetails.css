@@ -27,3 +27,16 @@
 .note-card-text {
 	margin-bottom: 0px;
 }
+
+.delete-assignment-button {
+	width: 100%;
+	background-color: var(--bg-primary);
+	color: var(--text-secondary);
+	text-align: left;
+	margin-top: 1rem;
+}
+
+.delete-assignment-button:hover {
+	color: var(--text-secondary);
+	background-color: var(--danger);
+}
