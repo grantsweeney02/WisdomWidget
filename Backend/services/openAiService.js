@@ -74,7 +74,6 @@ async function fetchExplanation(query) {
         ],
     });
     const response = completion.choices[0].message.content;
-    console.log(response);
     return JSON.parse(response);
 }
 
