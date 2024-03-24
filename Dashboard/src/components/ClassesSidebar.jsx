@@ -5,7 +5,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
-import "../styles/ClassesSidebar.css";
+import "../styles/classessidebar.css";
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../App";
 
@@ -104,41 +104,56 @@ const ClassesSidebar = ({}) => {
         );
     });
 
-	return (
-		<nav className="classes-sidebar col-3">
-			<h2>Classes</h2>
-			<div className="accordion" id="classesAccordion">
-				{ClassAccordionItems}
-			</div>
-			{isAddingClass ? (
-				<div className="add-class-input">
-					<input
-						type="text"
-						className="form-control"
-						placeholder="Enter class name"
-						value={newClassName}
-						onChange={(e) => setNewClassName(e.target.value)}
-					/>
-					<div className="add-class-confirms">
-						<button type="button" className="btn" onClick={() => handleConfirmAddClass()}>
-							<CheckIcon />
-						</button>
-						<button type="button" className="btn" onClick={() => handleCancelAddClass()}>
-							<CloseIcon />
-						</button>
-					</div>
-				</div>
-			) : (
-				<button className="btn add-class-button" onClick={() => handleAddClass()}>
-					<AddIcon style={{ marginInline: "0.125rem" }} />
-					Add Class
-				</button>
-			)}
-			<button type="button" className="btn btn-danger sidebar-logout-button" onClick={() => handleLogout()}>
-				<LogoutIcon />
-			</button>
-		</nav>
-	)
-}
+    return (
+        <nav className="classes-sidebar col-3">
+            <h2>Classes</h2>
+            <div className="accordion" id="classesAccordion">
+                {ClassAccordionItems}
+            </div>
+            {isAddingClass ? (
+                <div className="add-class-input">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter class name"
+                        value={newClassName}
+                        onChange={(e) => setNewClassName(e.target.value)}
+                    />
+                    <div className="add-class-confirms">
+                        <button
+                            type="button"
+                            className="btn"
+                            onClick={() => handleConfirmAddClass()}
+                        >
+                            <CheckIcon />
+                        </button>
+                        <button
+                            type="button"
+                            className="btn"
+                            onClick={() => handleCancelAddClass()}
+                        >
+                            <CloseIcon />
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <button
+                    className="btn add-class-button"
+                    onClick={() => handleAddClass()}
+                >
+                    <AddIcon style={{ marginInline: "0.125rem" }} />
+                    Add Class
+                </button>
+            )}
+            <button
+                type="button"
+                className="btn btn-danger sidebar-logout-button"
+                onClick={() => handleLogout()}
+            >
+                <LogoutIcon />
+            </button>
+        </nav>
+    );
+};
 
 export default ClassesSidebar;

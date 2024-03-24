@@ -1,11 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/NoteCard.css";
 
-const NoteCard = ({ assignmentID, note }) => {
+const NoteCard = ({ classID, assignmentID, note }) => {
     const navigate = useNavigate();
 
     return (
-        <Link to={`/${assignmentID}/${note.id}`} className="card note-summary-card">
+        <Link
+            to={`/${classID}-${assignmentID}/${note.noteId}`}
+            className="card note-summary-card"
+        >
             <div className="card-header note-card-header">{note.name}</div>
             <div className="card-body note-card-body">
                 {/* TODO: cut off the summary with a ... after a certain number of characters */}
