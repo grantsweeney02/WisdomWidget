@@ -51,7 +51,7 @@ const Login = ({ data, setUserData }) => {
     }, []);
 
     return (
-        <div className="login-container">
+        <div className={"login-container" + (loggedIn ? " col-9" : "")}>
             <h1>Welcome to ____!</h1>
             {!loggedIn && (
                 <button
@@ -61,6 +61,9 @@ const Login = ({ data, setUserData }) => {
                     <GoogleIcon style={{ marginRight: "5px" }} />
                     Login with Google
                 </button>
+            )}
+            {loggedIn && (
+                <h2>Select a Course and Assignment to View Notes</h2>
             )}
         </div>
     );
