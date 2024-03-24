@@ -67,7 +67,7 @@ function Sidebar() {
         };
     }, []); // Empty dependency array means this effect runs once on mount
 
-    const handleButtonClick = () => {
+    const handleGenerateNoteClick = () => {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             chrome.tabs.sendMessage(
                 tabs[0].id,
@@ -333,7 +333,6 @@ function Sidebar() {
 
             {textNote ? (
                 <TextNote
-                    handleNoteClick={handleNoteClick}
                     text={currentPhrase}
                     data={noteResponse}
                 />

@@ -15,6 +15,8 @@ const HomePage = ({
 }) => {
     const [newNoteGenerated, setNewNoteGenerated] = useState(false);
     const [newNote, setNewNote] = useState({});
+    const [url, setUrl] = useState("");
+    const [source, setSource] = useState("");
 
     const handleNoteClick = (classId, assignmentId, noteId) => {
         chrome.tabs.create({
@@ -37,9 +39,20 @@ const HomePage = ({
             "Generating notes for assignment with id: ",
             activeAssignmentId
         );
-        let html = document.documentElement.outerHTML;
-        let cleanHTML = removeTagsFromDocument(html);
-        console.log("Clean HTML", cleanHTML);
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            chrome.tabs.sendMessage(
+                tabs[0].id,
+                { action: "getPageInfo" },
+                (response) => {
+                    if (chrome.runtime.lastError) {
+                        console.error(chrome.runtime.lastError.message);
+                        return;
+                    }
+                    setUrl(response.url);
+                    setSource(response.source);
+                }
+            );
+        });
         const response = await fetch("http://localhost:8000/services/scan", {
             method: "POST",
             headers: {
