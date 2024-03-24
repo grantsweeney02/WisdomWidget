@@ -72,16 +72,18 @@ const NoteDetails = ({}) => {
     useEffect(() => {
         if (data) {
             console.log("Mapping over", Object.entries(data.keyValuePairs[0]));
-            const k = Object.entries(data.keyValuePairs[0]).map(
-                ([keyword, definition]) => (
-                    <div key={keyword} className="keyword-container">
-                        <div className="keyword-card">
-                            <h5 className="keyword">{keyword}</h5>
-                            <p className="definition">{definition}</p>
+            if (data.keyValuePairs[0]) {
+                const k = Object.entries(data.keyValuePairs[0]).map(
+                    ([keyword, definition]) => (
+                        <div key={keyword} className="keyword-container">
+                            <div className="keyword-card">
+                                <h5 className="keyword">{keyword}</h5>
+                                <p className="definition">{definition}</p>
+                            </div>
                         </div>
-                    </div>
-                )
-            );
+                    )
+                );
+            }
             setKeywords(k);
         }
     }, [data]);

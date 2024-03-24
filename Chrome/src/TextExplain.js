@@ -23,20 +23,20 @@ const TextExplain = ({ data, activeClassId, activeAssignmentId, uid }) => {
 
     return (
         <div>
-            <h1 className="mb-4">Text Explain</h1>
-            <p className="lead">{data.name}</p>
-            <p>{data.summary}</p>
-            <div>
+            <h1 className="mb-4">Text Explanation</h1>
+            <p className="lead"><strong>Phrase: </strong>{data.name}</p>
+            <p><strong>Summary: </strong>{data.summary}</p>
+            {/* <div>
                 {Object.keys(data.keyValuePairs).map((key, index) => (
                     <div className="card-body" key={index}>
                         <h5 className="card-title">{key}</h5>
                         <p className="card-text">{data.keyValuePairs[key]}</p>
                     </div>
                 ))}
-            </div>
-            <button className="btn btn-primary" onClick={handleSaveNote}>
+            </div> */}
+            {/* <button className="btn btn-primary" onClick={handleSaveNote}>
                 Save Note
-            </button>
+            </button> */}
         </div>
     );
 };
