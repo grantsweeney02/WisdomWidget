@@ -1,8 +1,8 @@
-# NotesHelper
+# WisdomWidget
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-NotesHelper is an innovative tool designed to enhance online learning and research efficiency for students, educators, and professionals. By seamlessly integrating with web browsers through a Chrome extension, it allows users to create, store, and manage notes directly from various websites. These notes can be organized under specific assignments or projects, facilitating a structured approach to information gathering and review.
+WisdomWidget is an innovative tool designed to enhance online learning and research efficiency for students, educators, and professionals. By seamlessly integrating with web browsers through a Chrome extension, it allows users to create, store, and manage notes directly from various websites. These notes can be organized under specific assignments or projects, facilitating a structured approach to information gathering and review.
 
 ## Table of Contents
 
